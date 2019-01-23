@@ -9,10 +9,8 @@ class MyCard extends Component {
         this.state = {
             modal: false
           };
-      
-        this.toggle = this.toggle.bind(this);
     }
-    toggle() {
+    toggle = () => {
         this.setState({
           modal: !this.state.modal
         });
@@ -30,10 +28,19 @@ class MyCard extends Component {
                 </Card>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                    <ModalBody> {this.props.testPropsForCard}</ModalBody>
+                    <ModalBody>
+                        <label>Name Card</label>{this.props.testPropsForCard}
+                        <br/>
+                        <label>Name Column</label>{this.props.testPropsForCard}
+                        <br/>                        
+                        <label>Autor Card</label>{this.props.testPropsForCard}                        
+                        <br/>
+                        <label>Description Card</label>{this.props.testPropsForCard}
+
+                    </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                        <Button color="primary" onClick={this.toggle}>Edit</Button>{' '}
+                        <Button color="secondary" onClick={this.toggle}>Delete</Button>
                     </ModalFooter>
                 </Modal>
             </div>
