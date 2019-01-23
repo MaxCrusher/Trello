@@ -1,0 +1,11 @@
+.blockForNameCol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

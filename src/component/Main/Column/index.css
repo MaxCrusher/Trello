@@ -1,0 +1,10 @@
+.blockForTask{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e8e8e8;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
