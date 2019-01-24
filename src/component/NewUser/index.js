@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input} from 'reactstrap';
-//import './index.css'
-
 
 class NewUser extends Component{
     constructor(props){
@@ -24,7 +22,7 @@ class NewUser extends Component{
         let check = true
         if(localStorage.getItem('users') !== null) {
             let users = JSON.parse(localStorage.getItem('users'))
-            users.map((el) => {
+            users.forEach((el) => {
                 if(el.name === this.state.name) {
                     check = false
                     localStorage.setItem('actualUser', JSON.stringify(el))

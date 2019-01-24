@@ -35,23 +35,40 @@ class Column extends Component {
         this.props.updateCards(card)
         this.setState({
             cards: this.props.cards,
-            modal: !this.state.modal
+            modal: !this.state.modal,
+            valueNameCard: '',
+            valueDescCard: '',
         });
     }
+    editCard = (id, name, description) => {
+        this.props.editCard(id, name, description)
+    }
+    editNameCol = (id, name) => {
+        this.props.editNameCol(id, name)
+    }
     inputChange = (event) => {
-        event.target.id === "nameCard" ? this.setState({valueNameCard: event.target.value}) : this.setState({valueDescCard: event.target.value}) 
+        event.target.id === "nameCardCol" ? this.setState({valueNameCard: event.target.value}) : this.setState({valueDescCard: event.target.value}) 
+    }
+    deleteCard = (id) => {
+        this.props.deleteCard(id)
     }
     render(){
-        //console.log(this.state.cards)
-        //console.log('render column')
         let cards = this.props.cards.map((elem) => {
             return(
-                <MyCard id = {elem.id} name = {elem.nameCard} autor = {elem.autor} description = {elem.descriptionCard} colId = {elem.colId} colName = {elem.colName}/>
+                <MyCard key = {elem.id + elem.nameCard}
+                        id = {elem.id}
+                        name = {elem.nameCard}
+                        autor = {elem.autor}
+                        description = {elem.descriptionCard}
+                        colId = {elem.colId}
+                        colName = {elem.colName}
+                        editCard = {this.editCard}
+                        deleteCard = {this.deleteCard}/>
             )
         })
         return(
             <div className='blockForTask'>
-                <NameCol name={this.props.name.name}/>
+                <NameCol name={this.props.name.name} id = {this.props.name.id} editNameCol = {this.editNameCol}/>
                 {cards}
                 <Button size='sm' color="success" onClick = {this.toggle} block> Add Card</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
@@ -59,12 +76,12 @@ class Column extends Component {
                     <ModalBody>
                         <Form>
                             <FormGroup>
-                                <Label for="nameCard">Name Card</Label>
-                                <Input type="text" id="nameCard" placeholder="Name Card" onChange={this.inputChange} value={this.state.valueNameCard}/>
+                                <Label for="nameCardCol">Name Card</Label>
+                                <Input type="text" id="nameCardCol" placeholder="Name Card" onChange={this.inputChange} value={this.state.valueNameCard}/>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="descriptionCard">Description Card</Label>
-                                <Input type="text" id="descriptionCard" placeholder="Description Card" onChange={this.inputChange} value={this.state.valueDescCard}/>
+                                <Label for="descriptionCardCol">Description Card</Label>
+                                <Input type="text" id="descriptionCardCol" placeholder="Description Card" onChange={this.inputChange} value={this.state.valueDescCard}/>
                             </FormGroup>
                         </Form>
                     </ModalBody>

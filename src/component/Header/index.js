@@ -5,10 +5,7 @@ import './index.css'
 
 class Header extends Component {
 
-    constructor(props){
-        super(props)
 
-    }
     Exit = () => {
         localStorage.removeItem('actualUser')
         this.props.exitUser()
