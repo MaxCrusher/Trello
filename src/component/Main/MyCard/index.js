@@ -20,22 +20,23 @@ class MyCard extends Component {
             <div className='MyCard'>
                 <Card className='MyCard'>
                     <CardBody>
-                        <CardTitle>{this.props.testPropsForCard}</CardTitle>
-                        <CardText> {this.props.testPropsForCard} Autor Card</CardText>
-                        <CardText> {this.props.testPropsForCard} Small Description</CardText>
+                        <CardTitle>{this.props.name}</CardTitle>
+                        <CardText> {this.props.colName} </CardText>
+                        <CardText> {this.props.autor.name} </CardText>
+                        <CardText> {this.props.description} </CardText>
                         <Button color="danger" onClick={this.toggle}>Open</Button>
                     </CardBody>
                 </Card>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
                     <ModalBody>
-                        <label>Name Card</label>{this.props.testPropsForCard}
+                        <label>Name Card </label>{this.props.name}
                         <br/>
-                        <label>Name Column</label>{this.props.testPropsForCard}
+                        <label>Name Column </label>{this.props.colName}
                         <br/>                        
-                        <label>Autor Card</label>{this.props.testPropsForCard}                        
+                        <label>Autor Card </label>{this.props.autor.name}                        
                         <br/>
-                        <label>Description Card</label>{this.props.testPropsForCard}
+                        <label>Description Card</label>{this.props.description}
 
                     </ModalBody>
                     <ModalFooter>

@@ -15,41 +15,50 @@ class App extends Component {
       users: [],
       cards: [],
       columns: [],
-      actualUser: '',
+      actualUser: {},
     }
   }
 
   componentWillMount(){
 
-    console.log(JSON.stringify(columnsDefault))
     localStorage.getItem('actualUser') === null ? 
       this.setState({ newUser: true }) : 
-      this.setState({ newUser: false , actualUser: localStorage.getItem('actualUser') })
+      this.setState({ newUser: false , actualUser: JSON.parse(localStorage.getItem('actualUser')) })
 
-    localStorage.getItem('columns') === null ?
-      localStorage.setItem('columns', JSON.stringify(columnsDefault)) : 
-      this.setState({ columns: JSON.parse(localStorage.getItem('column')) })
+    if(localStorage.getItem('columns') === null) {
+      localStorage.setItem('columns', JSON.stringify(columnsDefault)) 
+      this.setState({ columns: JSON.parse(localStorage.getItem('columns')) })
+    } else { 
+      this.setState({ columns: JSON.parse(localStorage.getItem('columns')) })
+    }
 
     this.setState({ users: JSON.parse(localStorage.getItem('users')) })
-    this.setState({ cards: JSON.parse(localStorage.getItem('cards')) })
+
+    if(localStorage.getItem('cards') === null || localStorage.getItem('cards') === '') { 
+      localStorage.setItem('cards', [])
+    } else {
+      this.setState({ cards: JSON.parse(localStorage.getItem('cards')) })
+    }
+
   }
   Exit = () => {
-    this.setState({actualUser: '', newUser: true})
+    this.setState({actualUser: {}, newUser: true})
   }
   updateActualUser = () =>{
-    this.setState({ newUser: false, actualUser: localStorage.getItem('actualUser')})
+    this.setState({ newUser: false, actualUser: JSON.parse(localStorage.getItem('actualUser'))})
   }
   updateUsers =(users) => {
     this.setState({users: users})
   }
   render() {
     let content = null
+    console.log(this.state)
     this.state.newUser ? content = <NewUser updateUsers={this.updateUsers} updateActualUser={this.updateActualUser}/> : content = null
     return (
       <div className="App">
-        <Header exitUser = {this.Exit} name = {this.state.actualUser} colName = {this.state.columns}/>
+        <Header exitUser = {this.Exit} name = {this.state.actualUser.name}/>
         {content}
-        <Main user={this.state.users} card={this.state.cards} column={this.state.columns}/>
+        <Main users={this.state.users} cards={this.state.cards} columns={this.state.columns}/>
       </div>
     );
   }

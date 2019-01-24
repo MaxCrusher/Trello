@@ -16,8 +16,7 @@ class NewUser extends Component{
         this.setState({
           modal: !this.state.modal
         });
-        localStorage.setItem('actualUser', this.state.name)
-        this.props.updateActualUser()
+    
         this.addUserToLocalStorage()
     }
 
@@ -28,17 +27,26 @@ class NewUser extends Component{
             users.map((el) => {
                 if(el.name === this.state.name) {
                     check = false
+                    localStorage.setItem('actualUser', JSON.stringify(el))
+                    this.props.updateActualUser()
                 }
             })
-            if(check) {
-                users.push({id: users[users.length-1].id + 1, name: this.state.name})
+            if(check) { // пользователя нет в списке users
+                console.log(this.state.name)
+                const user = {id: users[users.length-1].id + 1, name: this.state.name}
+                users.push(user)
+                console.log(user)
+                localStorage.setItem('actualUser', JSON.stringify(user))
                 localStorage.setItem('users', JSON.stringify(users))
+                this.props.updateActualUser()
                 this.props.updateUsers(users)
             }
-        } else {
+        } else { // пользователь самый первый
             let { users } = this.state
             users.push({id: 1, name: this.state.name})
+            localStorage.setItem('actualUser', JSON.stringify({id: 1, name: this.state.name}))
             localStorage.setItem('users', JSON.stringify(users) )
+            this.props.updateActualUser()
         }
     }
 

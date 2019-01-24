@@ -17,7 +17,7 @@ class Header extends Component {
         return(
             <div className='header'>
                 <h1>TRELLO!!!</h1>
-                <label>{this.props.colName}</label>
+                <label>{this.props.name}</label>
                 <Button onClick={this.Exit}> Exit </Button>
             </div>
         )
