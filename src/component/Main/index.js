@@ -24,6 +24,7 @@ class Main extends Component {
             this.setState({
                 cards: this.props.cards,
                 // сортируем по коллоннам
+                
                 CardsForCol1: this.sort(1, this.props.cards),
                 CardsForCol2: this.sort(2, this.props.cards),
                 CardsForCol3: this.sort(3, this.props.cards),
@@ -90,7 +91,6 @@ class Main extends Component {
                 numDeleteCard = i
             }
         })
-        console.log(numDeleteCard)
         cards.splice(numDeleteCard, 1)
         localStorage.setItem('cards', JSON.stringify(cards))
         this.setState({ cards: cards }, 
@@ -102,27 +102,48 @@ class Main extends Component {
             }, this.maxId(maxId))
         )
     }
+    addComment = (text, autor, idCard) => {
+        let { cards } = this.state // localstorage
+        cards.map((elem)=>{
+            if(elem.id === idCard) {
+                console.log(elem.comments)
+                if (elem.comments.length === 0) { 
+                    elem.comments.push({id:1, autor: autor, text: text})
+                } else {
+                    elem.comments.push({id: elem.comments[elem.comments.length-1].id+1, autor: autor, text: text})
+                }
+            }
+        })
+        localStorage.setItem('cards', JSON.stringify(cards))
+        this.setState({ cards: cards }, 
+            this.setState({
+                CardsForCol1: this.sort(1, this.state.cards),
+                CardsForCol2: this.sort(2, this.state.cards),
+                CardsForCol3: this.sort(3, this.state.cards),
+                CardsForCol4: this.sort(4, this.state.cards),
+            })
+        )
+    }
     render(){
-        console.log("main")
         return(
             <div className='mainBlock'>
             <Container>
                 <Row>
                     <Col>
-                        <Column name={this.state.columns[0]} cards={this.state.CardsForCol1} editNameCol = {this.editNameCol} deleteCard = {this.deleteCard}
-                                updateCards = {this.updateCardsAll} maxIdCard = {this.state.maxId} editCard = {this.editCard}/>
+                        <Column name={this.state.columns[0]} cards={this.state.CardsForCol1} editNameCol = {this.editNameCol} deleteCard = {this.deleteCard} actualUser = {this.props.actualUser}
+                                updateCards = {this.updateCardsAll} maxIdCard = {this.state.maxId} editCard = {this.editCard} addComment = {this.addComment}/>
                     </Col>
                     <Col>
-                        <Column name={this.state.columns[1]} cards={this.state.CardsForCol2} editNameCol = {this.editNameCol} deleteCard = {this.deleteCard}
-                                updateCards = {this.updateCardsAll} maxIdCard = {this.state.maxId} editCard = {this.editCard}/>
+                        <Column name={this.state.columns[1]} cards={this.state.CardsForCol2} editNameCol = {this.editNameCol} deleteCard = {this.deleteCard} actualUser = {this.props.actualUser}
+                                updateCards = {this.updateCardsAll} maxIdCard = {this.state.maxId} editCard = {this.editCard} addComment = {this.addComment}/>
                     </Col>
                     <Col>
-                        <Column name={this.state.columns[2]} cards={this.state.CardsForCol3} editNameCol = {this.editNameCol} deleteCard = {this.deleteCard}
-                                updateCards = {this.updateCardsAll} maxIdCard = {this.state.maxId} editCard = {this.editCard}/>
+                        <Column name={this.state.columns[2]} cards={this.state.CardsForCol3} editNameCol = {this.editNameCol} deleteCard = {this.deleteCard} actualUser = {this.props.actualUser}
+                                updateCards = {this.updateCardsAll} maxIdCard = {this.state.maxId} editCard = {this.editCard} addComment = {this.addComment}/>
                     </Col>
                     <Col>
-                        <Column name={this.state.columns[3]} cards={this.state.CardsForCol4} editNameCol = {this.editNameCol} deleteCard = {this.deleteCard}
-                                updateCards = {this.updateCardsAll} maxIdCard = {this.state.maxId} editCard = {this.editCard}/>
+                        <Column name={this.state.columns[3]} cards={this.state.CardsForCol4} editNameCol = {this.editNameCol} deleteCard = {this.deleteCard} actualUser = {this.props.actualUser}
+                                updateCards = {this.updateCardsAll} maxIdCard = {this.state.maxId} editCard = {this.editCard} addComment = {this.addComment}/>
                     </Col>
                 </Row>
             </Container>

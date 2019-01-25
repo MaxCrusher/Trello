@@ -3,3 +3,14 @@
     margin-bottom: 10px;
     width: 100%;
 }
+.footModal{
+    display: block;
+}
+.buttons_left{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.button{
+    margin-right: 5px;
+}

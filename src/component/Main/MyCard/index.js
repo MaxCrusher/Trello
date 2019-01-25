@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Card, Button, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter, CardBody , Input , Label } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter, CardBody , Input , Label , Media } from 'reactstrap';
+import Comment from './Comment'
 import './index.css'
+
+//let comments = null
 
 class MyCard extends Component {
     constructor(props) {
@@ -9,6 +12,9 @@ class MyCard extends Component {
             modal: false,
             nameValue: this.props.name,
             descriptionValue: this.props.description,
+            comment: '',
+            actualUser: this.props.actualUser.name,
+            comments: this.props.comments
         };
     }
     toggle = () => {
@@ -23,13 +29,25 @@ class MyCard extends Component {
     handeleChange = (event) => {
             event.target.id === "nameCard" ?
                 this.setState({ nameValue: event.target.value}) : 
-                this.setState({ descriptionValue: event.target.value })
+                event.target.id === "descriptionCard" ? 
+                    this.setState({ descriptionValue: event.target.value }) : 
+                    this.setState({ comment: event.target.value })
     }
     Delete = () => {
         this.props.deleteCard(this.props.id)
         this.toggle()
     }
+    addComment = () => {
+        this.props.addComment(this.state.comment, this.props.actualUser.name, this.props.id)
+        //comments = <Comment text = {this.state.comment} autor = {this.state.actualUser} /*editComment = {} deleteComment = {}*//>
+        this.setState({ comment: '' })
+    }
     render(){
+        let comments = this.state.comments.map((elem)=>{
+            return (
+                <Comment text = {elem.text} autor = {elem.autor}/*editComment = {} deleteComment = {}*//>
+            )
+        })
         return(
             <div className='MyCard'>
                 <Card className='MyCard'>
@@ -51,11 +69,23 @@ class MyCard extends Component {
                         <Label>Description: </Label><Input plaintext id='descriptionCard' onChange = {this.handeleChange} value = {this.state.descriptionValue}/>
                         <br/>                        
                         <Label>Autor: {this.props.autor.name}</Label>
-
+                        <br/>
+                        <div className = 'buttons_left'>
+                            <Button className = 'button' color="primary" onClick={this.Edit}>Edit</Button>
+                            <Button color="secondary" onClick={this.Delete}>Delete</Button>
+                        </div>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.Edit}>Edit</Button>{' '}
-                        <Button color="secondary" onClick={this.Delete}>Delete</Button>
+
+                    <ModalFooter className = 'footModal'>
+                        <Label>Comments: </Label>
+                        <div className = 'newCommentBlock'>
+                            <Label className = 'autorComment'>{this.props.actualUser.name}</Label>
+                            <Input type='text' placeholder ='comment' id='comment' onChange={this.handeleChange} value = {this.state.comment}/>
+                        </div>
+                        <Button color='success' onClick = {this.addComment}>Add Comment</Button>
+                    </ModalFooter>
+                    <ModalFooter className = 'footModal'>
+                        {comments}
                     </ModalFooter>
                 </Modal>
             </div>

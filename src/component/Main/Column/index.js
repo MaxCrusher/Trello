@@ -29,6 +29,7 @@ class Column extends Component {
             autor: JSON.parse(localStorage.getItem('actualUser')),
             nameCard: this.state.valueNameCard,
             descriptionCard: this.state.valueDescCard,
+            comments: [],
             colId: this.props.name.id,
             colName: this.props.name.name
         }
@@ -52,6 +53,9 @@ class Column extends Component {
     deleteCard = (id) => {
         this.props.deleteCard(id)
     }
+    addComment = (text, autor, idCard) => {
+        this.props.addComment(text, autor, idCard)
+    }
     render(){
         let cards = this.props.cards.map((elem) => {
             return(
@@ -62,8 +66,11 @@ class Column extends Component {
                         description = {elem.descriptionCard}
                         colId = {elem.colId}
                         colName = {elem.colName}
+                        comments = {elem.comments}
                         editCard = {this.editCard}
-                        deleteCard = {this.deleteCard}/>
+                        deleteCard = {this.deleteCard}
+                        actualUser = {this.props.actualUser}
+                        addComment = { this.addComment}/>
             )
         })
         return(

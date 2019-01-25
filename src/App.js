@@ -52,13 +52,12 @@ class App extends Component {
   }
   render() {
     let content = null
-    console.log(this.state)
     this.state.newUser ? content = <NewUser updateUsers={this.updateUsers} updateActualUser={this.updateActualUser}/> : content = null
     return (
       <div className="App">
         <Header exitUser = {this.Exit} name = {this.state.actualUser.name}/>
         {content}
-        <Main users={this.state.users} cards={this.state.cards} columns={this.state.columns}/>
+        <Main users={this.state.users} actualUser = {this.state.actualUser} cards={this.state.cards} columns={this.state.columns}/>
       </div>
     );
   }

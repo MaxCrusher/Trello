@@ -2,3 +2,10 @@
     margin-top: 30px;
     
 }
+.newCommentBlock{
+    display: flex;
+    padding-bottom: 20px;
+}
+.autorComment{
+    margin-right: 20px;
+}
