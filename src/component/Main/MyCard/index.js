@@ -37,15 +37,21 @@ class MyCard extends Component {
         this.props.deleteCard(this.props.id)
         this.toggle()
     }
+    editComment = (id, text) => {
+        this.props.editComment(id, text, this.props.id)
+    }
     addComment = () => {
         this.props.addComment(this.state.comment, this.props.actualUser.name, this.props.id)
         //comments = <Comment text = {this.state.comment} autor = {this.state.actualUser} /*editComment = {} deleteComment = {}*//>
         this.setState({ comment: '' })
     }
+    deleteComment = (id) => {
+        this.props.deleteComment(id, this.props.id)
+    }
     render(){
         let comments = this.state.comments.map((elem)=>{
             return (
-                <Comment text = {elem.text} autor = {elem.autor}/*editComment = {} deleteComment = {}*//>
+                <Comment text = {elem.text} autor = {elem.autor} id = {elem.id} editComment = {this.editComment} deleteComment = {this.deleteComment}/>
             )
         })
         return(

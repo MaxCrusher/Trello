@@ -14,3 +14,6 @@
 .button{
     margin-right: 5px;
 }
+#descriptionCard {
+    border: #c9c9c9 1px solid;
+}

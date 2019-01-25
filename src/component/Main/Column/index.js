@@ -47,11 +47,17 @@ class Column extends Component {
     editNameCol = (id, name) => {
         this.props.editNameCol(id, name)
     }
+    editComment = (id, text, idCard) => {
+        this.props.editComment(id, text, idCard)
+    }
     inputChange = (event) => {
         event.target.id === "nameCardCol" ? this.setState({valueNameCard: event.target.value}) : this.setState({valueDescCard: event.target.value}) 
     }
     deleteCard = (id) => {
         this.props.deleteCard(id)
+    }
+    deleteComment = (id, idCard) => {
+        this.props.deleteComment(id, idCard)
     }
     addComment = (text, autor, idCard) => {
         this.props.addComment(text, autor, idCard)
@@ -68,6 +74,8 @@ class Column extends Component {
                         colName = {elem.colName}
                         comments = {elem.comments}
                         editCard = {this.editCard}
+                        editComment = {this.editComment}
+                        deleteComment = {this.deleteComment}
                         deleteCard = {this.deleteCard}
                         actualUser = {this.props.actualUser}
                         addComment = { this.addComment}/>
