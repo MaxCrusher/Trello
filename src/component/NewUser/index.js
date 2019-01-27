@@ -11,11 +11,16 @@ class NewUser extends Component{
         };
     }
     toggle = () => {
-        this.setState({
-          modal: !this.state.modal
-        });
-    
-        this.addUserToLocalStorage()
+        if(this.state.name !== '') {
+            this.setState({
+                modal: !this.state.modal
+              });
+          
+              this.addUserToLocalStorage()
+        } else {
+            alert('Writing name')
+        }
+        
     }
 
     addUserToLocalStorage = () => {

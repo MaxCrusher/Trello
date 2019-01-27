@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter, CardBody , Input , Label , Media } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter, CardBody , Input , Label } from 'reactstrap';
 import Comment from './Comment'
 import './index.css'
 
@@ -15,16 +15,23 @@ class MyCard extends Component {
             comment: '',
             actualUser: this.props.actualUser.name,
             comments: this.props.comments
+            
         };
     }
+
     toggle = () => {
         this.setState({
           modal: !this.state.modal
         });
     }
     Edit = () => {
-        this.props.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue)
-        this.toggle()
+        if(this.props.autor.id === this.props.actualUser.id)  {
+            this.props.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue)
+            this.toggle()
+        } else { 
+            alert('you cannot edit card')
+            this.setState({nameValue: this.props.name, descriptionValue: this.props.description})
+        }
     }
     handeleChange = (event) => {
             event.target.id === "nameCard" ?
@@ -34,45 +41,48 @@ class MyCard extends Component {
                     this.setState({ comment: event.target.value })
     }
     Delete = () => {
-        this.props.deleteCard(this.props.id)
-        this.toggle()
+        if(this.props.autor.id === this.props.actualUser.id) {
+            this.props.deleteCard(this.props.id)
+            this.toggle()
+        } else alert('you cannot delete card')
     }
     editComment = (id, text) => {
         this.props.editComment(id, text, this.props.id)
     }
     addComment = () => {
         this.props.addComment(this.state.comment, this.props.actualUser.name, this.props.id)
-        //comments = <Comment text = {this.state.comment} autor = {this.state.actualUser} /*editComment = {} deleteComment = {}*//>
         this.setState({ comment: '' })
     }
     deleteComment = (id) => {
         this.props.deleteComment(id, this.props.id)
     }
     render(){
+        let propertyInput = true
+        this.props.actualUser.name === this.props.autor.name ? propertyInput = false : propertyInput = true
         let comments = this.state.comments.map((elem)=>{
             return (
-                <Comment text = {elem.text} autor = {elem.autor} id = {elem.id} editComment = {this.editComment} deleteComment = {this.deleteComment}/>
+                <Comment key = {elem.id + elem.autor} text = {elem.text} autor = {elem.autor} autorCard={this.props.autor.name} actualUser={this.props.actualUser.name} id = {elem.id} editComment = {this.editComment} deleteComment = {this.deleteComment}/>
             )
         })
         return(
             <div className='MyCard'>
                 <Card className='MyCard'>
                     <CardBody>
-                        <CardTitle>{this.state.nameValue}</CardTitle>
+                        <CardTitle>{this.props.name}</CardTitle>
                         <CardText> {this.props.colName} </CardText>
                         <CardText> Autor: {this.props.autor.name} </CardText>
-                        <CardText> {this.state.descriptionValue} </CardText>
+                        <CardText> {this.props.description} </CardText>
                         <Button color="danger" onClick={this.toggle}>Open</Button>
                     </CardBody>
                 </Card>
-                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                <Modal isOpen={this.state.modal}  className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>
-                        <Input plaintext id='nameCard' onChange = {this.handeleChange} value = {this.state.nameValue}/>
+                        <Input plaintext={true} readOnly={propertyInput} id='nameCard' onChange = {this.handeleChange} value = {this.state.nameValue}/>
                     </ModalHeader>
                     <ModalBody>
                         <Label>Type: {this.props.colName}</Label>                    
                         <br/>
-                        <Label>Description: </Label><Input plaintext id='descriptionCard' onChange = {this.handeleChange} value = {this.state.descriptionValue}/>
+                        <Label>Description: </Label><Input plaintext={true} readOnly={propertyInput} id='descriptionCard' onChange = {this.handeleChange} value = {this.state.descriptionValue}/>
                         <br/>                        
                         <Label>Autor: {this.props.autor.name}</Label>
                         <br/>

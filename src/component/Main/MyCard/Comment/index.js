@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input , Label , Media } from 'reactstrap';
+import { Button, Input , Media } from 'reactstrap';
 import './index.css'
 
 class Comment extends Component {
@@ -14,11 +14,17 @@ class Comment extends Component {
         this.setState({ textValue: event.target.value})
     }
     editComment = () => {
-        console.log(this.props.id, this.state.textValue, "comment")
-        this.props.editComment(this.props.id, this.state.textValue)
+        if(this.props.actualUser === this.props.autor) {
+            this.props.editComment(this.props.id, this.state.textValue)
+        } else {
+            alert('you cannot edit comment')
+            this.setState({textValue: this.props.text})
+        }
     }
     deleteComment = () => {
-        this.props.deleteComment(this.props.id)
+        if(this.props.actualUser === this.props.autor || this.props.actualUser === this.props.autorCard){
+            this.props.deleteComment(this.props.id)
+        } else alert('you cannot delete comment')
     }
     render(){
         return(

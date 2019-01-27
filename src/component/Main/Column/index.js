@@ -24,22 +24,23 @@ class Column extends Component {
     }
 
     newCard = () => {
-        let card  = {
-            id: this.props.maxIdCard + 1,
-            autor: JSON.parse(localStorage.getItem('actualUser')),
-            nameCard: this.state.valueNameCard,
-            descriptionCard: this.state.valueDescCard,
-            comments: [],
-            colId: this.props.name.id,
-            colName: this.props.name.name
-        }
-        this.props.updateCards(card)
-        this.setState({
+        if (this.state.valueDescCard !== "" && this.state.valueNameCard !== "") {
+          let card = {  id: this.props.maxIdCard + 1,
+                        autor: JSON.parse(localStorage.getItem("actualUser")),
+                        nameCard: this.state.valueNameCard,
+                        descriptionCard: this.state.valueDescCard,
+                        comments: [],
+                        colId: this.props.name.id,
+                        colName: this.props.name.name
+                    };
+          this.props.updateCards(card);
+          this.setState({
             cards: this.props.cards,
             modal: !this.state.modal,
-            valueNameCard: '',
-            valueDescCard: '',
-        });
+            valueNameCard: "",
+            valueDescCard: ""
+          });
+        } else alert('Checking forms')
     }
     editCard = (id, name, description) => {
         this.props.editCard(id, name, description)
