@@ -11,10 +11,6 @@ class Main extends Component {
         super(props)
         this.state = {
             columns: this.props.columns,
-            CardsForCol1:[],
-            CardsForCol2:[],
-            CardsForCol3:[],
-            CardsForCol4:[],
             CardsForCol: [],
             cards: [],
             maxId: 0
@@ -30,13 +26,6 @@ class Main extends Component {
             this.setState({
                 CardsForCol: CardsForCol,
                 cards: this.props.cards,
-                // сортируем по коллоннам
-                
-                CardsForCol1: this.sort(1, this.props.cards),
-                CardsForCol2: this.sort(2, this.props.cards),
-                CardsForCol3: this.sort(3, this.props.cards),
-                CardsForCol4: this.sort(4, this.props.cards),
-
             }, this.maxId(maxId))
         }
     }
