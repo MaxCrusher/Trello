@@ -89,9 +89,7 @@ class App extends Component {
       CardsForColLocal.push(this.sortInCardsForCol(3, this.state.cards));
       CardsForColLocal.push(this.sortInCardsForCol(4, this.state.cards));
 
-      this.setState({ CardsForCol: CardsForColLocal }, () => {
-        this.maxId(this.state.cards);
-      });
+      this.setState({ CardsForCol: CardsForColLocal });
     });
   };
 

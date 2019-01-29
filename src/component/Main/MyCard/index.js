@@ -58,7 +58,6 @@ class MyCard extends Component {
             </Button>
           </CardBody>
         </Card>
-        <div>{this.props.children}</div>
         <ModalCard
           isOpen={this.state.modal}
           id={this.props.id}
@@ -84,19 +83,13 @@ export default MyCard;
 
 MyCard.propTypes = {
   addComment: PropTypes.func.isRequired,
-  className: PropTypes.func.isRequired,
   deleteCard: PropTypes.func.isRequired,
   editCard: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
 
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  colName: PropTypes.string.isRequired,
-
-  isOpen: PropTypes.bool.isRequired,
 
   actualUser: PropTypes.object.isRequired,
   column: PropTypes.object.isRequired,

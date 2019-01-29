@@ -53,13 +53,10 @@ Main.propTypes = {
   comments: PropTypes.array.isRequired,
 
   addComment: PropTypes.func.isRequired,
-  className: PropTypes.func.isRequired,
   addCard: PropTypes.func.isRequired,
   deleteCard: PropTypes.func.isRequired,
   editCard: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
-  updateCards: PropTypes.func.isRequired,
   editNameCol: PropTypes.func.isRequired,
-  updateCardsAll: PropTypes.func.isRequired,
 };

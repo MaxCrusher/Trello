@@ -53,7 +53,6 @@ class ModalCard extends Component {
   };
 
   render() {
-    console.log(this.props, 'modalcard');
     let propertyInput = true;
     if (this.props.actualUser.name === this.props.autorCard.name) {
       propertyInput = false;
@@ -76,7 +75,7 @@ class ModalCard extends Component {
       return null;
     });
     return (
-      <Modal isOpen={this.props.isOpen} className={this.props.className}>
+      <Modal isOpen={this.props.isOpen}>
         <ModalHeader toggle={this.props.toggle}>
           <Input
             plaintext={true}
@@ -134,7 +133,6 @@ class ModalCard extends Component {
 export default ModalCard;
 ModalCard.propTypes = {
   addComment: PropTypes.func.isRequired,
-  className: PropTypes.func.isRequired,
   deleteCard: PropTypes.func.isRequired,
   editCard: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
@@ -144,15 +142,14 @@ ModalCard.propTypes = {
 
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  colName: PropTypes.string.isRequired,
-  autorCard: PropTypes.string.isRequired,
+
+  autorCard: PropTypes.object.isRequired,
 
   isOpen: PropTypes.bool.isRequired,
 
   actualUser: PropTypes.object.isRequired,
   column: PropTypes.object.isRequired,
   comments: PropTypes.array.isRequired,
-  autor: PropTypes.object.isRequired,
 
   id: PropTypes.number.isRequired,
 };

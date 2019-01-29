@@ -66,7 +66,7 @@ class Column extends Component {
           {' '}
           Add Card
         </Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>New Card</ModalHeader>
           <ModalBody>
             <Form>
@@ -106,25 +106,19 @@ export default Column;
 
 Column.propTypes = {
   addComment: PropTypes.func.isRequired,
-  className: PropTypes.func.isRequired,
   addCard: PropTypes.func.isRequired,
   deleteCard: PropTypes.func.isRequired,
   editCard: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
-  updateCards: PropTypes.func.isRequired,
   editNameCol: PropTypes.func.isRequired,
 
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  colName: PropTypes.string.isRequired,
   column: PropTypes.object.isRequired,
 
   actualUser: PropTypes.object.isRequired,
   comments: PropTypes.array.isRequired,
-  autor: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
 
   id: PropTypes.number.isRequired,
-  maxIdCard: PropTypes.number.isRequired,
 };

@@ -18,7 +18,6 @@ class Comment extends Component {
 
   editComment = () => {
     if (this.props.actualUser === this.props.autor.name) {
-      console.log(this.props.id, this.state.textValue);
       this.props.editComment(this.props.id, this.state.textValue);
     } else {
       alert('you cannot edit comment');
@@ -57,7 +56,7 @@ Comment.propTypes = {
 
   actualUser: PropTypes.object.isRequired,
   autor: PropTypes.object.isRequired,
-  autorCard: PropTypes.object.isRequired,
+  autorCard: PropTypes.string.isRequired,
 
   id: PropTypes.number.isRequired,
 };
