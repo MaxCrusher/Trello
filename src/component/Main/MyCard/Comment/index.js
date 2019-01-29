@@ -17,7 +17,8 @@ class Comment extends Component {
   };
 
   editComment = () => {
-    if (this.props.actualUser === this.props.autor) {
+    if (this.props.actualUser === this.props.autor.name) {
+      console.log(this.props.id, this.state.textValue);
       this.props.editComment(this.props.id, this.state.textValue);
     } else {
       alert('you cannot edit comment');
@@ -26,7 +27,7 @@ class Comment extends Component {
   };
 
   deleteComment = () => {
-    if (this.props.actualUser === this.props.autor || this.props.actualUser === this.props.autorCard) {
+    if (this.props.actualUser.name === this.props.autor.name || this.props.actualUser.name === this.props.autorCard) {
       this.props.deleteComment(this.props.id);
     } else alert('you cannot delete comment');
   };
@@ -36,7 +37,7 @@ class Comment extends Component {
       <Media>
         <Media body>
           <Media heading className="comment">
-            {this.props.autor}
+            {this.props.autor.name}
             <Button color={'danger'} onClick={this.deleteComment}>
               Delete
             </Button>

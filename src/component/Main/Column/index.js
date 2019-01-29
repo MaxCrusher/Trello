@@ -26,21 +26,11 @@ class Column extends Component {
 
   addCard = () => {
     if (this.state.valueDescCard !== '' && this.state.valueNameCard !== '') {
+      this.toggle();
       this.props.addCard(this.state.valueNameCard, this.state.valueDescCard, this.props.id);
+      this.setState({ valueNameCard: '', valueDescCard: '' });
     } else alert('Checking forms');
   };
-
-  /* editCard = (id, name, description) => {
-    this.props.editCard(id, name, description);
-  };
-
-  editNameCol = (id, name) => {
-    this.props.editNameCol(id, name);
-  };
-
-  editComment = (id, text, idCard) => {
-    this.props.editComment(id, text, idCard);
-  }; */
 
   inputChange = event => {
     if (event.target.id === 'nameCardCol') {
@@ -48,41 +38,29 @@ class Column extends Component {
     } else this.setState({ valueDescCard: event.target.value });
   };
 
-  /* deleteCard = id => {
-    this.props.deleteCard(id);
-  };
-
-  deleteComment = (id, idCard) => {
-    this.props.deleteComment(id, idCard);
-  };
-
-  addComment = (text, autor, idCard) => {
-    this.props.addComment(text, autor, idCard);
-  }; */
-
   render() {
     const cards = this.props.cards.map(elem => (
       <MyCard
         key={elem.id + elem.nameCard}
         id={elem.id}
         name={elem.nameCard}
+        actualUser={this.props.actualUser}
         autor={elem.autor}
         description={elem.descriptionCard}
-        colId={elem.colId}
-        colName={elem.colName}
-        comments={elem.comments}
+        column={this.props.column}
+        comments={this.props.comments}
+        deleteCard={this.props.deleteCard}
         editCard={this.props.editCard}
+        addCard={this.props.addCard}
+        addComment={this.props.addComment}
         editComment={this.props.editComment}
         deleteComment={this.props.deleteComment}
-        deleteCard={this.props.deleteCard}
-        actualUser={this.props.actualUser}
-        addComment={this.props.addComment}
       />
     ));
 
     return (
       <div className="blockForTask">
-        <NameCol name={this.props.name.name} id={this.props.name.id} editNameCol={this.editNameCol} />
+        <NameCol name={this.props.name} id={this.props.id} editNameCol={this.props.editNameCol} />
         {cards}
         <Button size="sm" color="success" onClick={this.toggle} block>
           {' '}
@@ -135,15 +113,17 @@ Column.propTypes = {
   editComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
   updateCards: PropTypes.func.isRequired,
+  editNameCol: PropTypes.func.isRequired,
 
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   colName: PropTypes.string.isRequired,
+  column: PropTypes.object.isRequired,
 
   actualUser: PropTypes.object.isRequired,
-  comments: PropTypes.object.isRequired,
-  autor: PropTypes.object.isRequired,
-  cards: PropTypes.object.isRequired,
+  comments: PropTypes.array.isRequired,
+  autor: PropTypes.array.isRequired,
+  cards: PropTypes.array.isRequired,
 
   id: PropTypes.number.isRequired,
   maxIdCard: PropTypes.number.isRequired,

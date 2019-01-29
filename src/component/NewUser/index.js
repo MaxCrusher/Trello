@@ -15,14 +15,10 @@ class NewUser extends Component {
   toggle = () => {
     if (this.state.name !== '') {
       this.setState({ modal: !this.state.modal });
-      this.addUserToLocalStorage();
+      this.props.addUser(this.state.name);
     } else {
       alert('Writing name');
     }
-  };
-
-  addUserToLocalStorage = () => {
-    this.props.addUser(this.state.name);
   };
 
   inputChange = event => {

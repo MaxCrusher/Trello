@@ -9,24 +9,23 @@ class Main extends Component {
     super(props);
     this.state = {
       columns: [],
-      CardsForCol: [],
       cards: [],
       maxId: 0,
     };
   }
 
   render() {
-    const column = this.state.CardsForCol.map((elem, i) => (
+    const column = this.props.columns.map((elem, i) => (
       <Col xs={12} sm={6} md={6} lg={3} className="col_margin" key={i}>
         <Column
-          id={i + 1}
-          name={this.state.columns[i]}
-          cards={elem}
+          id={elem.id}
+          name={elem.name}
+          cards={this.props.CardsForCol[i]}
+          column={elem}
+          comments={this.props.comments}
+          actualUser={this.props.actualUser}
           editNameCol={this.props.editNameCol}
           deleteCard={this.props.deleteCard}
-          actualUser={this.props.actualUser}
-          updateCards={this.props.updateCardsAll}
-          maxIdCard={this.state.maxId}
           editCard={this.props.editCard}
           addCard={this.props.addCard}
           addComment={this.props.addComment}
@@ -48,7 +47,10 @@ export default Main;
 
 Main.propTypes = {
   actualUser: PropTypes.object.isRequired,
-  cards: PropTypes.object.isRequired,
+  cards: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired,
+  CardsForCol: PropTypes.array.isRequired,
+  comments: PropTypes.array.isRequired,
 
   addComment: PropTypes.func.isRequired,
   className: PropTypes.func.isRequired,
