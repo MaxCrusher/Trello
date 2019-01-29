@@ -26,10 +26,7 @@ class App extends Component {
     };
   }
 
-  // eslint-disable-next-line react/no-deprecated lines-between
-  // изменить на componentDidMount
-  // eslint-disable-next-line react/no-deprecated
-  componentWillMount() {
+  componentDidMount() {
     if (localStorage.getItem('actualUser') === null) {
       this.setState({ newUser: true });
     } else {
