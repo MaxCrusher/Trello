@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, CardTitle, CardText, CardBody, Label } from 'reactstrap';
+import { Card, Button, CardTitle, CardText, CardBody } from 'reactstrap';
 import PropTypes from 'prop-types';
 import ModalCard from './ModalCard';
 import './index.css';
@@ -38,7 +38,10 @@ class MyCard extends Component {
     }
   };
 
-  numComments = num => this.setState({ numComments: num });
+  numComments = (commentsArg, idCard) => {
+    const mas = commentsArg.filter(elem => elem.idCard === idCard);
+    return mas.length;
+  };
 
   render() {
     return (
@@ -49,10 +52,10 @@ class MyCard extends Component {
             <CardText> {this.props.column.name} </CardText>
             <CardText> Autor: {this.props.autor.name} </CardText>
             <CardText> {this.props.description} </CardText>
+            <CardText>Comments: {this.numComments(this.props.comments, this.props.id)}</CardText>
             <Button color="danger" onClick={this.toggle}>
               Open
             </Button>
-            <Label>{this.state.numComments}</Label>
           </CardBody>
         </Card>
         <div>{this.props.children}</div>

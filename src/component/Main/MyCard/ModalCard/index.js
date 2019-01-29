@@ -15,20 +15,6 @@ class ModalCard extends Component {
     };
   }
 
-  // eslint-disable-next-line react/no-deprecated lines-between
-  // изменить на componentDidMount
-  // eslint-disable-next-line react/no-deprecated
-  componentWillMount() {
-    const comments = this.props.comments.map(elem => {
-      if (elem.idCard === this.props.id) {
-        return { ...elem };
-      }
-      return null;
-    });
-    console.log(comments.length);
-    this.props.numComments(comments.length);
-  }
-
   addComment = () => {
     this.props.addComment(this.state.comment, this.props.id);
     this.setState({ comment: '' });
@@ -89,7 +75,6 @@ class ModalCard extends Component {
       }
       return null;
     });
-    this.props.numComments(comments.length);
     return (
       <Modal isOpen={this.props.isOpen} className={this.props.className}>
         <ModalHeader toggle={this.props.toggle}>

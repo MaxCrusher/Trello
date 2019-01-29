@@ -224,9 +224,7 @@ class App extends Component {
     };
     const commentsLocal = this.state.comments.concat(comment);
     localStorage.setItem('comments', JSON.stringify(commentsLocal));
-    this.setState({ comments: commentsLocal }, () => {
-      this.updateCardsForCol(this.state.cards);
-    });
+    this.setState({ comments: commentsLocal });
   };
 
   deleteComment = id => {
