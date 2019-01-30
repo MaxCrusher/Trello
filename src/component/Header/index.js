@@ -5,12 +5,24 @@ import { Button } from 'reactstrap';
 import './index.css';
 
 class Header extends Component {
+  blur = () => {
+    document.getElementById('butExit').blur();
+  };
+
   render() {
     return (
       <div className="header">
         <h1>TRELLO!!!</h1>
         <label>{this.props.name}</label>
-        <Button onClick={this.props.exitUser}> Exit </Button>
+        <Button
+          id="butExit"
+          onClick={() => {
+            this.props.exitUser();
+            this.blur();
+          }}
+        >
+          Exit
+        </Button>
       </div>
     );
   }

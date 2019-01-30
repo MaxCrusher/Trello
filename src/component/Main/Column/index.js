@@ -18,13 +18,15 @@ class Column extends Component {
     };
   }
 
-  componentDidMount = () => {
-    document.getElementById('qwert').blur();
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+    this.blur();
   };
 
-  toggle = () => {
-    this.setState({ modal: !this.state.modal }, () => {
-      console.log(this.state.modal);
+  blur = () => {
+    const mas = document.getElementsByClassName('butAdd');
+    Array.from(mas).forEach(elem => {
+      elem.blur();
     });
   };
 
@@ -57,7 +59,7 @@ class Column extends Component {
       <div className="blockForTask">
         <NameCol name={this.props.name} id={this.props.id} editNameCol={this.props.editNameCol} />
         {cards}
-        <Button id="qwert" size="sm" color="success" onClick={this.toggle} block>
+        <Button className="butAdd" id="butAdd" size="sm" color="success" onClick={this.toggle} block>
           {' '}
           Add Card
         </Button>

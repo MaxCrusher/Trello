@@ -15,7 +15,9 @@ class NewUser extends Component {
   }; */
 
   toggle = () => {
-    if (this.state.name !== '') {
+    const regNum = RegExp(/\d/);
+    const regSpace = RegExp(/\s/);
+    if (!regNum.test(this.state.name) && !regSpace.test(this.state.name)) {
       this.setState({ name: '' });
       this.props.addUser(this.state.name);
     } else {
