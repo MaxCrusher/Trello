@@ -6,26 +6,28 @@ class NewUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: true,
       name: '',
-      users: [],
     };
   }
 
+  /* componentDidUpdate = () => {
+    this.setState({ modal: this.props.isOpen });
+  }; */
+
   toggle = () => {
     if (this.state.name !== '') {
-      this.setState({ modal: !this.state.modal });
+      this.setState({ name: '' });
       this.props.addUser(this.state.name);
     } else {
       alert('Writing name');
     }
   };
 
-  /* downEnter = event => {
+  downEnter = event => {
     if (event.keyCode === 13) {
       this.toggle();
     }
-  }; */
+  };
 
   inputChange = event => {
     this.setState({ name: event.target.value });
@@ -34,7 +36,7 @@ class NewUser extends Component {
   render() {
     return (
       <div onKeyDown={this.downEnter}>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.props.isOpen} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Username</ModalHeader>
           <ModalBody>
             <Input placeholder="Check it out" onChange={this.inputChange} value={this.state.name} />
@@ -52,4 +54,6 @@ class NewUser extends Component {
 export default NewUser;
 NewUser.propTypes = {
   addUser: PropTypes.func.isRequired,
+
+  isOpen: PropTypes.bool.isRequired,
 };

@@ -61,18 +61,6 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
-  "eslintConfig": {
-    "extends": "eslint-config-purrweb-react",
-    "globals": {
-      "localStorage": true,
-      "window": true
-    },
-    "env": {
-      "browser": true,
-      "node": true,
-      "jasmine": true
-    }
-  },
   "browserslist": [
     ">0.2%",
     "not dead",

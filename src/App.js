@@ -22,18 +22,17 @@ class App extends Component {
       comments: [],
       actualUser: {},
       CardsForCol: [[], [], [], []],
-      maxId: 0,
     };
   }
 
   componentDidMount() {
-    if (localStorage.getItem('actualUser') === null) {
+    if (!localStorage.getItem('actualUser')) {
       this.setState({ newUser: true });
     } else {
       this.setState({ newUser: false, actualUser: JSON.parse(localStorage.getItem('actualUser')) });
     }
 
-    if (localStorage.getItem('columns') === null) {
+    if (!localStorage.getItem('columns')) {
       localStorage.setItem('columns', JSON.stringify(columnsDefault));
       this.setState({ columns: JSON.parse(localStorage.getItem('columns')) });
     } else {
@@ -65,7 +64,7 @@ class App extends Component {
   }
 
   sortInCardsForCol = (id, cards) => {
-    const cardsLocal = cards.filter(elem => elem.colId === id);
+    const cardsLocal = cards.filter(elem => elem.colId === id); // !!!!
     return cardsLocal;
   };
 
@@ -129,12 +128,7 @@ class App extends Component {
         this.updateActualUser(user);
       });
     } else {
-      const user = this.state.users.filter(elem => {
-        if (elem.name === nameArg) {
-          return { ...elem };
-        }
-        return null;
-      });
+      const user = this.state.users.filter(elem => elem.name === nameArg);
       this.updateActualUser(user[0]); // !!!!!
     }
   };
@@ -142,13 +136,6 @@ class App extends Component {
   // ______________________________________________________________________________________________
 
   // cards
-
-  updateCardsAll = card => {
-    const { cards } = { ...this.state };
-    cards.push(card);
-    localStorage.setItem('cards', JSON.stringify(cards));
-    this.updateCardsForCol(cards, true);
-  };
 
   addCard = (nameArg, descriptionArg, colIdArg) => {
     const card = {
@@ -170,7 +157,7 @@ class App extends Component {
       if (elem.id === id) {
         return { ...elem, nameCard: name, descriptionCard: description };
       }
-      return { ...elem };
+      return elem;
     });
     localStorage.setItem('cards', JSON.stringify(cardsLocal));
     this.setState({ cards: cardsLocal }, () => {
@@ -179,12 +166,7 @@ class App extends Component {
   };
 
   deleteCard = id => {
-    const cardsLocal = this.state.cards.filter(elem => {
-      if (elem.id !== id) {
-        return { ...elem };
-      }
-      return null;
-    });
+    const cardsLocal = this.state.cards.filter(elem => elem.id !== id);
     localStorage.setItem('cards', JSON.stringify(cardsLocal));
     this.setState({ cards: cardsLocal }, () => {
       this.updateCardsForCol(this.state.cards);
@@ -199,7 +181,7 @@ class App extends Component {
       if (elem.id === id) {
         return { ...elem, name: nameArg };
       }
-      return { ...elem };
+      return elem;
     });
     localStorage.setItem('columns', JSON.stringify(columnsLocal));
     this.setState({
@@ -223,12 +205,7 @@ class App extends Component {
   };
 
   deleteComment = id => {
-    const commentsLocal = this.state.comments.filter(elem => {
-      if (elem.id !== id) {
-        return { ...elem };
-      }
-      return null;
-    });
+    const commentsLocal = this.state.comments.filter(elem => elem.id !== id);
     localStorage.setItem('comments', JSON.stringify(commentsLocal));
     this.setState({ comments: commentsLocal });
   };
@@ -238,7 +215,7 @@ class App extends Component {
       if (elem.id === id) {
         return { ...elem, text: textArg };
       }
-      return { ...elem };
+      return elem;
     });
     localStorage.setItem('comments', JSON.stringify(commentsLocal));
     this.setState({ comments: commentsLocal });
@@ -246,16 +223,16 @@ class App extends Component {
   // ____________________________________________________________________________________
 
   render() {
-    let content = null;
+    /* let content = null;
     if (this.state.newUser) {
       content = <NewUser addUser={this.addUsers} />;
     } else {
       content = null;
-    }
+    } */
     return (
       <div className="App">
         <Header exitUser={this.exit} name={this.state.actualUser.name} />
-        {content}
+        <NewUser addUser={this.addUsers} isOpen={this.state.newUser} />
         <Main
           users={this.state.users}
           actualUser={this.state.actualUser}

@@ -12,7 +12,6 @@ class MyCard extends Component {
       nameValue: this.props.name,
       descriptionValue: this.props.description,
       comment: '',
-      numComments: 0,
     };
   }
 

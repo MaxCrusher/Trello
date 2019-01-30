@@ -18,6 +18,10 @@ class Column extends Component {
     };
   }
 
+  componentDidMount = () => {
+    document.getElementById('qwert').blur();
+  };
+
   toggle = () => {
     this.setState({ modal: !this.state.modal }, () => {
       console.log(this.state.modal);
@@ -49,19 +53,11 @@ class Column extends Component {
         deleteComment={this.props.deleteComment}
       />
     ));
-    /* let addModal = null;
-    if (this.state.modal) {
-      addModal = (
-        
-      );
-    } else {
-      addModal = null;
-    } */
     return (
       <div className="blockForTask">
         <NameCol name={this.props.name} id={this.props.id} editNameCol={this.props.editNameCol} />
         {cards}
-        <Button size="sm" color="success" onClick={this.toggle} block>
+        <Button id="qwert" size="sm" color="success" onClick={this.toggle} block>
           {' '}
           Add Card
         </Button>

@@ -5,15 +5,6 @@ import Column from './Column';
 import './index.css';
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      columns: [],
-      cards: [],
-      maxId: 0,
-    };
-  }
-
   render() {
     const column = this.props.columns.map((elem, i) => (
       <Col xs={12} sm={6} md={6} lg={3} className="col_margin" key={i}>
