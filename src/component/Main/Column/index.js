@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 
+import AddCardModal from './AddCardModal';
 import NameCol from './NameCol';
 import MyCard from '../MyCard';
 
@@ -11,7 +12,6 @@ class Column extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [],
       modal: false,
       valueNameCard: '',
       valueDescCard: '',
@@ -19,17 +19,9 @@ class Column extends Component {
   }
 
   toggle = () => {
-    this.setState({
-      modal: !this.state.modal,
+    this.setState({ modal: !this.state.modal }, () => {
+      console.log(this.state.modal);
     });
-  };
-
-  addCard = () => {
-    if (this.state.valueDescCard !== '' && this.state.valueNameCard !== '') {
-      this.toggle();
-      this.props.addCard(this.state.valueNameCard, this.state.valueDescCard, this.props.id);
-      this.setState({ valueNameCard: '', valueDescCard: '' });
-    } else alert('Checking forms');
   };
 
   inputChange = event => {
@@ -57,7 +49,14 @@ class Column extends Component {
         deleteComment={this.props.deleteComment}
       />
     ));
-
+    /* let addModal = null;
+    if (this.state.modal) {
+      addModal = (
+        
+      );
+    } else {
+      addModal = null;
+    } */
     return (
       <div className="blockForTask">
         <NameCol name={this.props.name} id={this.props.id} editNameCol={this.props.editNameCol} />
@@ -66,38 +65,7 @@ class Column extends Component {
           {' '}
           Add Card
         </Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>New Card</ModalHeader>
-          <ModalBody>
-            <Form>
-              <FormGroup>
-                <Label for="nameCardCol">Name Card</Label>
-                <Input
-                  type="text"
-                  id="nameCardCol"
-                  placeholder="Name Card"
-                  onChange={this.inputChange}
-                  value={this.state.valueNameCard}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="descriptionCardCol">Description Card</Label>
-                <Input
-                  type="text"
-                  id="descriptionCardCol"
-                  placeholder="Description Card"
-                  onChange={this.inputChange}
-                  value={this.state.valueDescCard}
-                />
-              </FormGroup>
-            </Form>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.addCard}>
-              OK
-            </Button>{' '}
-          </ModalFooter>
-        </Modal>
+        <AddCardModal modal={this.state.modal} addCard={this.props.addCard} id={this.props.id} toggle={this.toggle} />
       </div>
     );
   }

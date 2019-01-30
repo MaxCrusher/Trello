@@ -21,23 +21,31 @@ class NewUser extends Component {
     }
   };
 
+  /* downEnter = event => {
+    if (event.keyCode === 13) {
+      this.toggle();
+    }
+  }; */
+
   inputChange = event => {
     this.setState({ name: event.target.value });
   };
 
   render() {
     return (
-      <Modal isOpen={this.state.modal} toggle={this.toggle}>
-        <ModalHeader toggle={this.toggle}>Username</ModalHeader>
-        <ModalBody>
-          <Input placeholder="Check it out" onChange={this.inputChange} value={this.state.name} />
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={this.toggle}>
-            OK
-          </Button>{' '}
-        </ModalFooter>
-      </Modal>
+      <div onKeyDown={this.downEnter}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+          <ModalHeader toggle={this.toggle}>Username</ModalHeader>
+          <ModalBody>
+            <Input placeholder="Check it out" onChange={this.inputChange} value={this.state.name} />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggle}>
+              OK
+            </Button>{' '}
+          </ModalFooter>
+        </Modal>
+      </div>
     );
   }
 }
