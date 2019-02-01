@@ -19,7 +19,6 @@ class AddCardModal extends Component {
   };
 
   downEnter = event => {
-    console.log(event.keyCode, this.props.modal);
     if (event.keyCode === 13 && this.props.modal) {
       this.addCard();
     }

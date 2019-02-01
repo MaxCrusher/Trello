@@ -3,7 +3,6 @@ import * as actionType from '../action-type';
 const initialState = { comments: [] };
 
 const modifidedComments = (state = initialState, action) => {
-  console.log(action, 'comments');
   switch (action.type) {
     case actionType.ADD_COMMENT: {
       const newComment = state.comments.concat(action.comment);

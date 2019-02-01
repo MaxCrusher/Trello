@@ -76,7 +76,6 @@ Column.propTypes = {
   column: PropTypes.object.isRequired,
 
   actualUser: PropTypes.object.isRequired,
-  comments: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
 
   id: PropTypes.number.isRequired,

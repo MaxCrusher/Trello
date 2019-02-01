@@ -54,14 +54,11 @@ class Header extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  console.log(state, 'maptoprops');
-  return {
-    actualUser: state.actualUser.actualUser,
-  };
-};
+const mapStateToProps = state => ({
+  actualUser: state.actualUser.actualUser,
+});
 export default connect(mapStateToProps)(Header);
 Header.propTypes = {
-  actualUser: PropTypes.string.isRequired,
+  actualUser: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };

@@ -80,7 +80,6 @@ MyCard.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 
-  actualUser: PropTypes.object.isRequired,
   column: PropTypes.object.isRequired,
 
   comments: PropTypes.array.isRequired,
