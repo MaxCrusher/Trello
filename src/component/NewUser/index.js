@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'react
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as action from '../../actions';
+import maxId from '../maxId';
 
 class NewUser extends Component {
   constructor(props) {
@@ -16,7 +17,6 @@ class NewUser extends Component {
     const regNum = RegExp(/\d/);
     const regSpace = RegExp(/\s/);
     if (!regNum.test(this.state.name) && !regSpace.test(this.state.name)) {
-      // this.props.addUser(this.state.name);
       let newUser = true;
       if (this.props.users !== null) {
         newUser = !!this.props.users.find(elem => elem.name === this.state.name);
@@ -24,7 +24,7 @@ class NewUser extends Component {
       if (!newUser) {
         // addUser and updateActualUser
         const user = {
-          id: this.maxId(this.props.users) + 1,
+          id: maxId(this.props.users) + 1,
           name: this.state.name,
         };
         this.props.dispatch(action.updateActualUser(user));
@@ -42,18 +42,6 @@ class NewUser extends Component {
   toggle = () => {
     this.setState({ name: '' });
     this.props.closeModal();
-  };
-
-  maxId = masInState => {
-    let max = 0;
-    if (masInState.length === 0) {
-      this.setState({ maxId: 0 });
-      max = 0;
-    } else {
-      this.setState({ maxId: masInState[masInState.length - 1].id });
-      max = masInState[masInState.length - 1].id;
-    }
-    return max;
   };
 
   downEnter = event => {

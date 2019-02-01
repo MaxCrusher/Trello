@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Comment from '../Comment';
+import * as action from '../../../../actions';
 import '../index.css';
 
 class ModalCard extends Component {
@@ -34,7 +36,8 @@ class ModalCard extends Component {
 
   Delete = () => {
     if (this.props.autorCard.id === this.props.actualUser.id) {
-      this.props.deleteCard(this.props.id);
+      // this.props.deleteCard(this.props.id);
+      this.props.dispatch(action.deleteCard(this.props.id));
       this.props.toggle();
     } else alert('you cannot delete card');
   };
@@ -44,7 +47,8 @@ class ModalCard extends Component {
   };
 
   editCard = () => {
-    this.props.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue);
+    // this.props.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue);
+    this.props.dispatch(action.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue));
     this.props.toggle();
   };
 
@@ -130,15 +134,18 @@ class ModalCard extends Component {
     );
   }
 }
-export default ModalCard;
+/* const mapStateToProps = state => ({
+
+}); */
+export default connect()(ModalCard);
 ModalCard.propTypes = {
   addComment: PropTypes.func.isRequired,
-  deleteCard: PropTypes.func.isRequired,
   editCard: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
   toggle: PropTypes.func.isRequired,
   numComments: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

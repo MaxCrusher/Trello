@@ -23,12 +23,12 @@ export function deleteComment(id) {
   return { type: action.DELETE_COMMENT, id };
 }
 
-export function addCard(id, nameCard, descriptionCard, idColumn) {
-  return { type: action.ADD_CARD, id, nameCard, descriptionCard, idColumn };
+export function addCard(card) {
+  return { type: action.ADD_CARD, card };
 }
 
-export function editCard(id, nameCard, descriptionCard) {
-  return { type: action.EDIT_CARD, id, nameCard, descriptionCard };
+export function editCard(id, name, description) {
+  return { type: action.EDIT_CARD, id, name, description };
 }
 
 export function deleteCard(id) {

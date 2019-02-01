@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import AddCardModal from './AddCardModal';
 import NameCol from './NameCol';
 import MyCard from '../MyCard';
@@ -37,24 +37,28 @@ class Column extends Component {
   };
 
   render() {
-    const cards = this.props.cards.map(elem => (
-      <MyCard
-        key={elem.id + elem.nameCard}
-        id={elem.id}
-        name={elem.nameCard}
-        actualUser={this.props.actualUser}
-        autor={elem.autor}
-        description={elem.descriptionCard}
-        column={this.props.column}
-        comments={this.props.comments}
-        deleteCard={this.props.deleteCard}
-        editCard={this.props.editCard}
-        addCard={this.props.addCard}
-        addComment={this.props.addComment}
-        editComment={this.props.editComment}
-        deleteComment={this.props.deleteComment}
-      />
-    ));
+    const cards = this.props.cards.map(elem => {
+      if (elem.idCol === this.props.id) {
+        return (
+          <MyCard
+            key={elem.id + elem.nameCard}
+            id={elem.id}
+            name={elem.name}
+            actualUser={this.props.actualUser}
+            autor={elem.autor}
+            description={elem.description}
+            column={this.props.column}
+            comments={this.props.comments}
+            deleteCard={this.props.deleteCard}
+            editCard={this.props.editCard}
+            addComment={this.props.addComment}
+            editComment={this.props.editComment}
+            deleteComment={this.props.deleteComment}
+          />
+        );
+      }
+      return null;
+    });
     return (
       <div className="blockForTask">
         <NameCol name={this.props.name} id={this.props.id} />
@@ -63,16 +67,19 @@ class Column extends Component {
           {' '}
           Add Card
         </Button>
-        <AddCardModal modal={this.state.modal} addCard={this.props.addCard} id={this.props.id} toggle={this.toggle} />
+        <AddCardModal modal={this.state.modal} id={this.props.id} toggle={this.toggle} />
       </div>
     );
   }
 }
-export default Column;
+const mapStateToProps = state => ({
+  actualUser: state.actualUser.actualUser,
+  cards: state.cards.cards,
+});
+export default connect(mapStateToProps)(Column);
 
 Column.propTypes = {
   addComment: PropTypes.func.isRequired,
-  addCard: PropTypes.func.isRequired,
   deleteCard: PropTypes.func.isRequired,
   editCard: PropTypes.func.isRequired,
   editComment: PropTypes.func.isRequired,

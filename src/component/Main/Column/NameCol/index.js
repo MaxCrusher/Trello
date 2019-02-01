@@ -27,6 +27,7 @@ class NameCol extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <div className="blockForNameCol">
         <Input
@@ -54,5 +55,4 @@ NameCol.propTypes = {
   nameColumn: PropTypes.object.isRequired,
 
   dispatch: PropTypes.func.isRequired,
-  editNameCol: PropTypes.func.isRequired,
 };

@@ -2,7 +2,7 @@ import { persistReducer } from 'redux-persist';
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 import SetTransform from './transform';
-// import reducersCard from './reducerCard';
+import reducersCard from './reducerCard';
 import reducersUser from './reducerUser';
 // import reducersComments from './reducerComment';
 import reducersColumns from './reducerColumn';
@@ -20,13 +20,13 @@ const users = {
   storage,
   backlist: ['root'],
   transforms: [SetTransform],
-};
+}; */
 const card = {
-  key: 'card',
+  key: 'cards',
   storage,
   backlist: ['root'],
   transforms: [SetTransform],
-}; */
+};
 const columns = {
   key: 'columns',
   storage,
@@ -41,8 +41,8 @@ const actualUser = {
 };
 const rootReducer = combineReducers({
   users: persistReducer(users, reducersUser),
-  /* comments: persistReducer(comments, reducersComments),
-  card: persistReducer(card, reducersCard), */
+  /* comments: persistReducer(comments, reducersComments), */
+  cards: persistReducer(card, reducersCard),
   columns: persistReducer(columns, reducersColumns),
   actualUser: persistReducer(actualUser, reducersActualUser),
 });
