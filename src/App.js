@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Header from './component/Header';
 import Main from './component/Main';
-import NewUser from './component/NewUser';
 import './App.css';
 
 const columnsDefault = [
@@ -99,40 +99,6 @@ class App extends Component {
     });
   };
 
-  // users
-
-  updateActualUser = userArg => {
-    localStorage.setItem('actualUser', JSON.stringify(userArg));
-    this.setState({ newUser: false, actualUser: userArg });
-  };
-
-  addUsers = nameArg => {
-    let newUser = true;
-    if (this.state.users !== null) {
-      this.state.users.forEach(elem => {
-        if (elem.name === nameArg) {
-          newUser = false;
-        }
-      });
-    }
-
-    if (newUser) {
-      // addUser and updateActualUser
-      const user = {
-        id: this.maxId(this.state.users) + 1,
-        name: nameArg,
-      };
-      const usersLocal = this.state.users.concat(user);
-      localStorage.setItem('users', JSON.stringify(usersLocal));
-      this.setState({ users: usersLocal }, () => {
-        this.updateActualUser(user);
-      });
-    } else {
-      const user = this.state.users.filter(elem => elem.name === nameArg);
-      this.updateActualUser(user[0]); // !!!!!
-    }
-  };
-
   // ______________________________________________________________________________________________
 
   // cards
@@ -223,16 +189,10 @@ class App extends Component {
   // ____________________________________________________________________________________
 
   render() {
-    /* let content = null;
-    if (this.state.newUser) {
-      content = <NewUser addUser={this.addUsers} />;
-    } else {
-      content = null;
-    } */
+    console.log(this.state);
     return (
       <div className="App">
         <Header exitUser={this.exit} name={this.state.actualUser.name} />
-        <NewUser addUser={this.addUsers} isOpen={this.state.newUser} />
         <Main
           users={this.state.users}
           actualUser={this.state.actualUser}
@@ -252,5 +212,11 @@ class App extends Component {
     );
   }
 }
-
-export default App;
+const mapStateToProps = state => {
+  console.log(state, 'maptoprops');
+  return {
+    users: state.users.users,
+    actualUser: state.actualUser.actualUser,
+  };
+};
+export default connect(mapStateToProps)(App);

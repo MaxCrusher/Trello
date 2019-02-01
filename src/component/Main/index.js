@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Column from './Column';
 import './index.css';
@@ -15,7 +16,6 @@ class Main extends Component {
           column={elem}
           comments={this.props.comments}
           actualUser={this.props.actualUser}
-          editNameCol={this.props.editNameCol}
           deleteCard={this.props.deleteCard}
           editCard={this.props.editCard}
           addCard={this.props.addCard}
@@ -34,7 +34,10 @@ class Main extends Component {
     );
   }
 }
-export default Main;
+const mapStateToProps = state => ({
+  columns: state.columns.columns,
+});
+export default connect(mapStateToProps)(Main);
 
 Main.propTypes = {
   actualUser: PropTypes.object.isRequired,

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as action from '../../../../actions';
 
 import './index.css';
 
@@ -17,7 +19,11 @@ class NameCol extends Component {
   };
 
   editNameCol = () => {
-    this.props.editNameCol(this.props.id, this.state.nameColValue);
+    const column = {
+      id: this.props.id,
+      name: this.state.nameColValue,
+    };
+    this.props.dispatch(action.editColumnName(column));
   };
 
   render() {
@@ -34,11 +40,19 @@ class NameCol extends Component {
     );
   }
 }
-export default NameCol;
+const mapStateToProps = state => ({
+  idColumn: state.columns.columns.id,
+  nameColumn: state.columns.columns.name,
+});
+
+export default connect(mapStateToProps)(NameCol);
 NameCol.propTypes = {
   name: PropTypes.string.isRequired,
 
   id: PropTypes.number.isRequired,
 
+  nameColumn: PropTypes.object.isRequired,
+
+  dispatch: PropTypes.func.isRequired,
   editNameCol: PropTypes.func.isRequired,
 };

@@ -57,7 +57,7 @@ class Column extends Component {
     ));
     return (
       <div className="blockForTask">
-        <NameCol name={this.props.name} id={this.props.id} editNameCol={this.props.editNameCol} />
+        <NameCol name={this.props.name} id={this.props.id} />
         {cards}
         <Button className="butAdd" id="butAdd" size="sm" color="success" onClick={this.toggle} block>
           {' '}
