@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Input, Media } from 'reactstrap';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
+import * as action from '../../../../actions';
 import './index.css';
 
 class Comment extends Component {
@@ -17,8 +18,8 @@ class Comment extends Component {
   };
 
   editComment = () => {
-    if (this.props.actualUser === this.props.autor.name) {
-      this.props.editComment(this.props.id, this.state.textValue);
+    if (this.props.actualUser.name === this.props.autor.name) {
+      this.props.dispatch(action.editComment(this.props.id, this.state.textValue));
     } else {
       alert('you cannot edit comment');
       this.setState({ textValue: this.props.text });
@@ -27,7 +28,7 @@ class Comment extends Component {
 
   deleteComment = () => {
     if (this.props.actualUser.name === this.props.autor.name || this.props.actualUser.name === this.props.autorCard) {
-      this.props.deleteComment(this.props.id);
+      this.props.dispatch(action.deleteComment(this.props.id));
     } else alert('you cannot delete comment');
   };
 
@@ -47,10 +48,12 @@ class Comment extends Component {
     );
   }
 }
-export default Comment;
+const mapStateToProps = state => ({
+  actualUser: state.actualUser.actualUser,
+});
+export default connect(mapStateToProps)(Comment);
 Comment.propTypes = {
-  editComment: PropTypes.func.isRequired,
-  deleteComment: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 
   text: PropTypes.string.isRequired,
 

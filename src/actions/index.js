@@ -11,8 +11,8 @@ export function updateActualUser(user) {
   return { type: action.UPDATE_ACTUAL_USER, user };
 }
 
-export function addComment(id, text, idCard) {
-  return { type: action.ADD_COMMENT, id, text, idCard };
+export function addComment(comment) {
+  return { type: action.ADD_COMMENT, comment };
 }
 
 export function editComment(id, text) {

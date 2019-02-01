@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Button, CardTitle, CardText, CardBody } from 'reactstrap';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalCard from './ModalCard';
 import './index.css';
@@ -63,35 +64,25 @@ class MyCard extends Component {
           name={this.props.name}
           description={this.props.description}
           column={this.props.column}
-          comments={this.props.comments}
-          addComment={this.props.addComment}
-          editComment={this.props.editComment}
-          deleteComment={this.props.deleteComment}
-          editCard={this.props.editCard}
-          deleteCard={this.props.deleteCard}
           autorCard={this.props.autor}
-          actualUser={this.props.actualUser}
           toggle={this.toggle}
-          numComments={this.numComments}
         />
       </div>
     );
   }
 }
-export default MyCard;
+const mapStateToProps = state => ({
+  comments: state.comments.comments,
+});
+export default connect(mapStateToProps)(MyCard);
 
 MyCard.propTypes = {
-  addComment: PropTypes.func.isRequired,
-  deleteCard: PropTypes.func.isRequired,
-  editCard: PropTypes.func.isRequired,
-  editComment: PropTypes.func.isRequired,
-  deleteComment: PropTypes.func.isRequired,
-
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 
   actualUser: PropTypes.object.isRequired,
   column: PropTypes.object.isRequired,
+
   comments: PropTypes.array.isRequired,
   autor: PropTypes.object.isRequired,
 

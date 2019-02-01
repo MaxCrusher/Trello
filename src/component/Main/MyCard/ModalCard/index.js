@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Comment from '../Comment';
 import * as action from '../../../../actions';
+import maxId from '../../../maxId';
 import '../index.css';
 
 class ModalCard extends Component {
@@ -18,7 +19,14 @@ class ModalCard extends Component {
   }
 
   addComment = () => {
-    this.props.addComment(this.state.comment, this.props.id);
+    // this.props.addComment(this.state.comment, this.props.id);
+    const comment = {
+      id: maxId(this.props.comments) + 1,
+      idCard: this.props.id,
+      text: this.state.comment,
+      autor: this.props.actualUser,
+    };
+    this.props.dispatch(action.addComment(comment));
     this.setState({ comment: '' });
   };
 
@@ -36,24 +44,14 @@ class ModalCard extends Component {
 
   Delete = () => {
     if (this.props.autorCard.id === this.props.actualUser.id) {
-      // this.props.deleteCard(this.props.id);
       this.props.dispatch(action.deleteCard(this.props.id));
       this.props.toggle();
     } else alert('you cannot delete card');
   };
 
-  editComment = (id, text) => {
-    this.props.editComment(id, text, this.props.id);
-  };
-
   editCard = () => {
-    // this.props.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue);
     this.props.dispatch(action.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue));
     this.props.toggle();
-  };
-
-  deleteComment = id => {
-    this.props.deleteComment(id);
   };
 
   render() {
@@ -69,10 +67,7 @@ class ModalCard extends Component {
             text={elem.text}
             autor={elem.autor}
             autorCard={this.props.autorCard.name}
-            actualUser={this.props.actualUser}
             id={elem.id}
-            editComment={this.props.editComment}
-            deleteComment={this.props.deleteComment}
           />
         );
       }
@@ -134,28 +129,24 @@ class ModalCard extends Component {
     );
   }
 }
-/* const mapStateToProps = state => ({
-
-}); */
-export default connect()(ModalCard);
+const mapStateToProps = state => ({
+  comments: state.comments.comments,
+  actualUser: state.actualUser.actualUser,
+});
+export default connect(mapStateToProps)(ModalCard);
 ModalCard.propTypes = {
-  addComment: PropTypes.func.isRequired,
-  editCard: PropTypes.func.isRequired,
-  editComment: PropTypes.func.isRequired,
-  deleteComment: PropTypes.func.isRequired,
   toggle: PropTypes.func.isRequired,
-  numComments: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
 
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 
   autorCard: PropTypes.object.isRequired,
+  actualUser: PropTypes.object.isRequired,
+  column: PropTypes.object.isRequired,
 
   isOpen: PropTypes.bool.isRequired,
 
-  actualUser: PropTypes.object.isRequired,
-  column: PropTypes.object.isRequired,
   comments: PropTypes.array.isRequired,
 
   id: PropTypes.number.isRequired,

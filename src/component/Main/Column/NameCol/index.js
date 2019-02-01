@@ -41,18 +41,11 @@ class NameCol extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  idColumn: state.columns.columns.id,
-  nameColumn: state.columns.columns.name,
-});
-
-export default connect(mapStateToProps)(NameCol);
+export default connect()(NameCol);
 NameCol.propTypes = {
   name: PropTypes.string.isRequired,
 
   id: PropTypes.number.isRequired,
-
-  nameColumn: PropTypes.object.isRequired,
 
   dispatch: PropTypes.func.isRequired,
 };

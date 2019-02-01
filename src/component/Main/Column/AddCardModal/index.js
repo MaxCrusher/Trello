@@ -91,7 +91,6 @@ const mapStateToProps = state => ({
 });
 export default connect(mapStateToProps)(AddCardModal);
 AddCardModal.propTypes = {
-  addCard: PropTypes.func.isRequired,
   toggle: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
 

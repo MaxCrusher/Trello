@@ -44,16 +44,9 @@ class Column extends Component {
             key={elem.id + elem.nameCard}
             id={elem.id}
             name={elem.name}
-            actualUser={this.props.actualUser}
             autor={elem.autor}
             description={elem.description}
             column={this.props.column}
-            comments={this.props.comments}
-            deleteCard={this.props.deleteCard}
-            editCard={this.props.editCard}
-            addComment={this.props.addComment}
-            editComment={this.props.editComment}
-            deleteComment={this.props.deleteComment}
           />
         );
       }
@@ -79,13 +72,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Column);
 
 Column.propTypes = {
-  addComment: PropTypes.func.isRequired,
-  deleteCard: PropTypes.func.isRequired,
-  editCard: PropTypes.func.isRequired,
-  editComment: PropTypes.func.isRequired,
-  deleteComment: PropTypes.func.isRequired,
-  editNameCol: PropTypes.func.isRequired,
-
   name: PropTypes.string.isRequired,
   column: PropTypes.object.isRequired,
 
