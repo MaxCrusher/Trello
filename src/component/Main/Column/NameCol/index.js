@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as action from '../../../../actions';
+// import { connect } from 'react-redux';
+// import * as action from '../../../../actions';
 
 import './index.css';
 
@@ -40,13 +40,10 @@ class NameCol extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
+/* const mapDispatchToProps = dispatch => ({
   editColumnName: column => dispatch(action.editColumnName(column)),
-});
-export default connect(
-  undefined,
-  mapDispatchToProps,
-)(NameCol);
+}); */
+export default NameCol;
 NameCol.propTypes = {
   name: PropTypes.string.isRequired,
 

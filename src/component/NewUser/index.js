@@ -27,11 +27,11 @@ class NewUser extends Component {
           id: maxId(this.props.users) + 1,
           name: this.state.name,
         };
-        this.props.dispatch(action.updateActualUser(user));
-        this.props.dispatch(action.addUser(user));
+        this.props.updateActualUser(user);
+        this.props.addUser(user);
       } else {
         const user = this.props.users.filter(elem => elem.name === this.state.name);
-        this.props.dispatch(action.updateActualUser(user[0]));
+        this.props.updateActualUser(user[0]);
       }
       this.toggle();
     } else {
@@ -75,9 +75,21 @@ class NewUser extends Component {
 const mapStateToProps = state => ({
   users: state.users.users,
 });
-export default connect(mapStateToProps)(NewUser);
+
+const mapDispatchToProps = {
+  updateActualUser: action.updateActualUser,
+  addUser: action.addUser,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewUser);
+
 NewUser.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  updateActualUser: PropTypes.func.isRequired,
+  addUser: PropTypes.func.isRequired,
+
   closeModal: PropTypes.func.isRequired,
 
   users: PropTypes.array.isRequired,

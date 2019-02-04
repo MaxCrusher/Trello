@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import AddCardModal from './AddCardModal';
 import NameCol from './NameCol';
 import MyCard from '../MyCard';
+import * as action from '../../../actions';
 
 import './index.css';
 
@@ -36,6 +37,8 @@ class Column extends Component {
     } else this.setState({ valueDescCard: event.target.value });
   };
 
+  editColName = column => this.props.editColumnName(column);
+
   render() {
     const cards = this.props.cards.map(elem => {
       if (elem.idCol === this.props.id) {
@@ -54,7 +57,7 @@ class Column extends Component {
     });
     return (
       <div className="blockForTask">
-        <NameCol name={this.props.name} id={this.props.id} />
+        <NameCol editColumnName={this.editColName} name={this.props.name} id={this.props.id} />
         {cards}
         <Button className="butAdd" id="butAdd" size="sm" color="success" onClick={this.toggle} block>
           {' '}
@@ -67,11 +70,18 @@ class Column extends Component {
 }
 const mapStateToProps = state => ({
   actualUser: state.actualUser.actualUser,
-  cards: state.cards.cards,
 });
-export default connect(mapStateToProps)(Column);
+const mapDispatchToProps = {
+  editColumnName: action.editColumnName,
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Column);
 
 Column.propTypes = {
+  editColumnName: PropTypes.func.isRequired,
+
   name: PropTypes.string.isRequired,
   column: PropTypes.object.isRequired,
 

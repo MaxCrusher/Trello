@@ -60,6 +60,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   updateActualUser: action.updateActualUser,
+  editColumnName: action.editColumnName,
 };
 
 export default connect(
@@ -70,4 +71,5 @@ export default connect(
 Header.propTypes = {
   actualUser: PropTypes.object.isRequired,
   updateActualUser: PropTypes.func.isRequired,
+  editColumnName: PropTypes.func.isRequired,
 };

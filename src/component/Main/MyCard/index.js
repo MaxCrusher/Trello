@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, Button, CardTitle, CardText, CardBody } from 'reactstrap';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ModalCard from './ModalCard';
 import './index.css';
@@ -13,6 +12,7 @@ class MyCard extends Component {
       nameValue: this.props.name,
       descriptionValue: this.props.description,
       comment: '',
+      numComments: 0,
     };
   }
 
@@ -40,7 +40,7 @@ class MyCard extends Component {
 
   numComments = (commentsArg, idCard) => {
     const mas = commentsArg.filter(elem => elem.idCard === idCard);
-    return mas.length;
+    this.setState({ numComments: mas.length });
   };
 
   render() {
@@ -52,7 +52,7 @@ class MyCard extends Component {
             <CardText> {this.props.column.name} </CardText>
             <CardText> Autor: {this.props.autor.name} </CardText>
             <CardText> {this.props.description} </CardText>
-            <CardText>Comments: {this.numComments(this.props.comments, this.props.id)}</CardText>
+            <CardText>Comments: {this.state.numComments}</CardText>
             <Button color="danger" onClick={this.toggle}>
               Open
             </Button>
@@ -66,23 +66,20 @@ class MyCard extends Component {
           column={this.props.column}
           autorCard={this.props.autor}
           toggle={this.toggle}
+          numComments={this.numComments}
         />
       </div>
     );
   }
 }
-const mapStateToProps = state => ({
-  comments: state.comments.comments,
-});
-export default connect(mapStateToProps)(MyCard);
+
+export default MyCard;
 
 MyCard.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 
   column: PropTypes.object.isRequired,
-
-  comments: PropTypes.array.isRequired,
   autor: PropTypes.object.isRequired,
 
   id: PropTypes.number.isRequired,
