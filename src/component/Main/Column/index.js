@@ -41,7 +41,7 @@ class Column extends Component {
       if (elem.idCol === this.props.id) {
         return (
           <MyCard
-            key={elem.id + elem.nameCard}
+            key={elem.id}
             id={elem.id}
             name={elem.name}
             autor={elem.autor}

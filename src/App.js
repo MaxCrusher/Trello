@@ -9,14 +9,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header exitUser={this.exit} name={this.props.actualUser.name} />
+        <Header name={this.props.actualUser.name} />
         <Main actualUser={this.props.actualUser} />
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
-  users: state.users.users,
   actualUser: state.actualUser.actualUser,
 });
 export default connect(mapStateToProps)(App);

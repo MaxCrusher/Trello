@@ -2,7 +2,7 @@ import * as actionType from '../action-type';
 
 const initialState = { comments: [] };
 
-const modifidedComments = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case actionType.ADD_COMMENT: {
       const newComment = state.comments.concat(action.comment);
@@ -28,5 +28,3 @@ const modifidedComments = (state = initialState, action) => {
       return state;
   }
 };
-
-export default modifidedComments;

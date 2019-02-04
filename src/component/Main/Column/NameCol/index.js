@@ -23,7 +23,7 @@ class NameCol extends Component {
       id: this.props.id,
       name: this.state.nameColValue,
     };
-    this.props.dispatch(action.editColumnName(column));
+    this.props.editColumnName(column);
   };
 
   render() {
@@ -40,11 +40,17 @@ class NameCol extends Component {
     );
   }
 }
-export default connect()(NameCol);
+const mapDispatchToProps = dispatch => ({
+  editColumnName: column => dispatch(action.editColumnName(column)),
+});
+export default connect(
+  undefined,
+  mapDispatchToProps,
+)(NameCol);
 NameCol.propTypes = {
   name: PropTypes.string.isRequired,
 
   id: PropTypes.number.isRequired,
 
-  dispatch: PropTypes.func.isRequired,
+  editColumnName: PropTypes.func.isRequired,
 };

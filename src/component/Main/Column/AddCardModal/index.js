@@ -34,7 +34,7 @@ class AddCardModal extends Component {
         idCol: this.props.id,
         autor: this.props.actualUser,
       };
-      this.props.dispatch(action.addCard(card));
+      this.props.addCard(card);
       this.setState({ valueNameCard: '', valueDescCard: '' });
     } else alert('Checking forms');
   };
@@ -88,10 +88,19 @@ const mapStateToProps = state => ({
   actualUser: state.actualUser.actualUser,
   cards: state.cards.cards,
 });
-export default connect(mapStateToProps)(AddCardModal);
+
+const mapDispatchToProps = {
+  addCard: action.addCard,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddCardModal);
+
 AddCardModal.propTypes = {
   toggle: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
 
   actualUser: PropTypes.object.isRequired,
 

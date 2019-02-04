@@ -22,6 +22,7 @@ class Main extends Component {
   }
 }
 const mapStateToProps = state => ({
+  // columns: state.columns.columns.map(col => ({...col, cards: state.cards.cards.filter()})),
   columns: state.columns.columns,
 });
 export default connect(mapStateToProps)(Main);

@@ -2,7 +2,7 @@ import * as actionType from '../action-type';
 
 const initialState = { cards: [] };
 
-const modifidedCards = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case actionType.ADD_CARD: {
       const newCard = state.cards.concat(action.card);
@@ -28,5 +28,3 @@ const modifidedCards = (state = initialState, action) => {
       return state;
   }
 };
-
-export default modifidedCards;

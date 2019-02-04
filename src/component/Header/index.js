@@ -27,7 +27,7 @@ class Header extends Component {
   };
 
   exitUser = () => {
-    this.props.dispatch(action.updateActualUser({}));
+    this.props.updateActualUser({});
     this.setState({ isOpen: true });
   };
 
@@ -57,8 +57,17 @@ class Header extends Component {
 const mapStateToProps = state => ({
   actualUser: state.actualUser.actualUser,
 });
-export default connect(mapStateToProps)(Header);
+
+const mapDispatchToProps = {
+  updateActualUser: action.updateActualUser,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Header);
+
 Header.propTypes = {
   actualUser: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  updateActualUser: PropTypes.func.isRequired,
 };

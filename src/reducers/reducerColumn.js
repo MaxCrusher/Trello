@@ -9,7 +9,7 @@ const columnsDefault = {
   ],
 };
 
-const modifidedColumnName = (state = columnsDefault, action) => {
+export default (state = columnsDefault, action) => {
   switch (action.type) {
     case actionType.EDIT_NAME_COLUMN: {
       const newColumn = state.columns.map(elem => {
@@ -25,4 +25,3 @@ const modifidedColumnName = (state = columnsDefault, action) => {
       return state;
   }
 };
-export default modifidedColumnName;

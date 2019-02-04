@@ -19,14 +19,13 @@ class ModalCard extends Component {
   }
 
   addComment = () => {
-    // this.props.addComment(this.state.comment, this.props.id);
     const comment = {
       id: maxId(this.props.comments) + 1,
       idCard: this.props.id,
       text: this.state.comment,
       autor: this.props.actualUser,
     };
-    this.props.dispatch(action.addComment(comment));
+    this.props.addComment(comment);
     this.setState({ comment: '' });
   };
 
@@ -44,13 +43,13 @@ class ModalCard extends Component {
 
   Delete = () => {
     if (this.props.autorCard.id === this.props.actualUser.id) {
-      this.props.dispatch(action.deleteCard(this.props.id));
+      this.props.deleteCard(this.props.id);
       this.props.toggle();
     } else alert('you cannot delete card');
   };
 
   editCard = () => {
-    this.props.dispatch(action.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue));
+    this.props.editCard(this.props.id, this.state.nameValue, this.state.descriptionValue);
     this.props.toggle();
   };
 
@@ -129,14 +128,28 @@ class ModalCard extends Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   comments: state.comments.comments,
   actualUser: state.actualUser.actualUser,
 });
-export default connect(mapStateToProps)(ModalCard);
+
+const mapDispatchToProps = {
+  editCard: action.editCard,
+  deleteCard: action.deleteCard,
+  addComment: action.addComment,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ModalCard);
+
 ModalCard.propTypes = {
   toggle: PropTypes.func.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  deleteCard: PropTypes.func.isRequired,
+  addComment: PropTypes.func.isRequired,
+  editCard: PropTypes.func.isRequired,
 
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

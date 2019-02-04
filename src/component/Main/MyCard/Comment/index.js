@@ -19,7 +19,7 @@ class Comment extends Component {
 
   editComment = () => {
     if (this.props.actualUser.name === this.props.autor.name) {
-      this.props.dispatch(action.editComment(this.props.id, this.state.textValue));
+      this.props.editComment(this.props.id, this.state.textValue);
     } else {
       alert('you cannot edit comment');
       this.setState({ textValue: this.props.text });
@@ -28,7 +28,7 @@ class Comment extends Component {
 
   deleteComment = () => {
     if (this.props.actualUser.name === this.props.autor.name || this.props.actualUser.name === this.props.autorCard) {
-      this.props.dispatch(action.deleteComment(this.props.id));
+      this.props.deleteComment(this.props.id);
     } else alert('you cannot delete comment');
   };
 
@@ -51,9 +51,18 @@ class Comment extends Component {
 const mapStateToProps = state => ({
   actualUser: state.actualUser.actualUser,
 });
-export default connect(mapStateToProps)(Comment);
+
+const mapDispatchToProps = {
+  deleteComment: action.deleteComment,
+  editComment: action.editComment,
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Comment);
 Comment.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
+  editComment: PropTypes.func.isRequired,
 
   text: PropTypes.string.isRequired,
 

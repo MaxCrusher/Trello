@@ -2,7 +2,7 @@ import * as actionType from '../action-type';
 
 const initialState = { users: [] };
 
-const modifidedUser = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case actionType.ADD_USER: {
       const newUsers = state.users.concat({ id: action.user.id, name: action.user.name });
@@ -13,5 +13,3 @@ const modifidedUser = (state = initialState, action) => {
       return state;
   }
 };
-
-export default modifidedUser;
