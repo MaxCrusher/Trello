@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as action from '../../../../actions';
+import maxId from '../../../maxId';
 
 class AddCardModal extends Component {
   constructor(props) {
@@ -16,7 +19,6 @@ class AddCardModal extends Component {
   };
 
   downEnter = event => {
-    console.log(event.keyCode, this.props.modal);
     if (event.keyCode === 13 && this.props.modal) {
       this.addCard();
     }
@@ -25,7 +27,14 @@ class AddCardModal extends Component {
   addCard = () => {
     if (this.state.valueDescCard !== '' && this.state.valueNameCard !== '') {
       this.toggle();
-      this.props.addCard(this.state.valueNameCard, this.state.valueDescCard, this.props.id);
+      const card = {
+        id: maxId(this.props.cards) + 1,
+        name: this.state.valueNameCard,
+        description: this.state.valueDescCard,
+        idCol: this.props.id,
+        autor: this.props.actualUser,
+      };
+      this.props.addCard(card);
       this.setState({ valueNameCard: '', valueDescCard: '' });
     } else alert('Checking forms');
   };
@@ -75,12 +84,29 @@ class AddCardModal extends Component {
     );
   }
 }
-export default AddCardModal;
+const mapStateToProps = state => ({
+  actualUser: state.actualUser.actualUser,
+  cards: state.cards.cards,
+});
+
+const mapDispatchToProps = {
+  addCard: action.addCard,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AddCardModal);
+
 AddCardModal.propTypes = {
-  addCard: PropTypes.func.isRequired,
   toggle: PropTypes.func.isRequired,
+  addCard: PropTypes.func.isRequired,
+
+  actualUser: PropTypes.object.isRequired,
 
   id: PropTypes.number.isRequired,
+
+  cards: PropTypes.array.isRequired,
 
   modal: PropTypes.bool.isRequired,
 };

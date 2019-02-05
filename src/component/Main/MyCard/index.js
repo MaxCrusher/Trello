@@ -37,11 +37,6 @@ class MyCard extends Component {
     }
   };
 
-  numComments = (commentsArg, idCard) => {
-    const mas = commentsArg.filter(elem => elem.idCard === idCard);
-    return mas.length;
-  };
-
   render() {
     return (
       <div className="MyCard" onKeyDown={this.closeEsc}>
@@ -51,7 +46,7 @@ class MyCard extends Component {
             <CardText> {this.props.column.name} </CardText>
             <CardText> Autor: {this.props.autor.name} </CardText>
             <CardText> {this.props.description} </CardText>
-            <CardText>Comments: {this.numComments(this.props.comments, this.props.id)}</CardText>
+            <CardText>Comments: {this.props.comments.length}</CardText>
             <Button color="danger" onClick={this.toggle}>
               Open
             </Button>
@@ -64,35 +59,23 @@ class MyCard extends Component {
           description={this.props.description}
           column={this.props.column}
           comments={this.props.comments}
-          addComment={this.props.addComment}
-          editComment={this.props.editComment}
-          deleteComment={this.props.deleteComment}
-          editCard={this.props.editCard}
-          deleteCard={this.props.deleteCard}
           autorCard={this.props.autor}
-          actualUser={this.props.actualUser}
           toggle={this.toggle}
-          numComments={this.numComments}
         />
       </div>
     );
   }
 }
+
 export default MyCard;
 
 MyCard.propTypes = {
-  addComment: PropTypes.func.isRequired,
-  deleteCard: PropTypes.func.isRequired,
-  editCard: PropTypes.func.isRequired,
-  editComment: PropTypes.func.isRequired,
-  deleteComment: PropTypes.func.isRequired,
-
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 
-  actualUser: PropTypes.object.isRequired,
-  column: PropTypes.object.isRequired,
   comments: PropTypes.array.isRequired,
+
+  column: PropTypes.object.isRequired,
   autor: PropTypes.object.isRequired,
 
   id: PropTypes.number.isRequired,

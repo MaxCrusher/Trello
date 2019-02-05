@@ -45,7 +45,11 @@
     "react-app-polyfill": "^0.2.0",
     "react-dev-utils": "^7.0.1",
     "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
     "reactstrap": "^7.1.0",
+    "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
+    "reselect": "^4.0.0",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
@@ -68,7 +72,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint-config-purrweb-react": "^1.0.8"
+    "eslint-config-purrweb-react": "^1.0.8",
+    "redux-devtools-inspector": "^0.11.3"
   },
   "jest": {
     "collectCoverageFrom": [

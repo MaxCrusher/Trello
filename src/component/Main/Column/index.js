@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import AddCardModal from './AddCardModal';
 import NameCol from './NameCol';
 import MyCard from '../MyCard';
+import * as action from '../../../actions';
 
 import './index.css';
 
@@ -36,54 +37,47 @@ class Column extends Component {
     } else this.setState({ valueDescCard: event.target.value });
   };
 
+  editColName = column => this.props.editColumnName(column);
+
   render() {
     const cards = this.props.cards.map(elem => (
       <MyCard
-        key={elem.id + elem.nameCard}
+        key={elem.id}
         id={elem.id}
-        name={elem.nameCard}
-        actualUser={this.props.actualUser}
+        name={elem.name}
         autor={elem.autor}
-        description={elem.descriptionCard}
+        description={elem.description}
         column={this.props.column}
-        comments={this.props.comments}
-        deleteCard={this.props.deleteCard}
-        editCard={this.props.editCard}
-        addCard={this.props.addCard}
-        addComment={this.props.addComment}
-        editComment={this.props.editComment}
-        deleteComment={this.props.deleteComment}
+        comments={elem.comments}
       />
     ));
     return (
       <div className="blockForTask">
-        <NameCol name={this.props.name} id={this.props.id} editNameCol={this.props.editNameCol} />
+        <NameCol editColumnName={this.editColName} name={this.props.name} id={this.props.id} />
         {cards}
         <Button className="butAdd" id="butAdd" size="sm" color="success" onClick={this.toggle} block>
           {' '}
           Add Card
         </Button>
-        <AddCardModal modal={this.state.modal} addCard={this.props.addCard} id={this.props.id} toggle={this.toggle} />
+        <AddCardModal modal={this.state.modal} id={this.props.id} toggle={this.toggle} />
       </div>
     );
   }
 }
-export default Column;
+const mapDispatchToProps = {
+  editColumnName: action.editColumnName,
+};
+export default connect(
+  undefined,
+  mapDispatchToProps,
+)(Column);
 
 Column.propTypes = {
-  addComment: PropTypes.func.isRequired,
-  addCard: PropTypes.func.isRequired,
-  deleteCard: PropTypes.func.isRequired,
-  editCard: PropTypes.func.isRequired,
-  editComment: PropTypes.func.isRequired,
-  deleteComment: PropTypes.func.isRequired,
-  editNameCol: PropTypes.func.isRequired,
+  editColumnName: PropTypes.func.isRequired,
 
   name: PropTypes.string.isRequired,
   column: PropTypes.object.isRequired,
 
-  actualUser: PropTypes.object.isRequired,
-  comments: PropTypes.array.isRequired,
   cards: PropTypes.array.isRequired,
 
   id: PropTypes.number.isRequired,

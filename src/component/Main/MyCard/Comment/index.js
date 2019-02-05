@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Input, Media } from 'reactstrap';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
+import * as action from '../../../../actions';
 import './index.css';
 
 class Comment extends Component {
@@ -17,7 +18,7 @@ class Comment extends Component {
   };
 
   editComment = () => {
-    if (this.props.actualUser === this.props.autor.name) {
+    if (this.props.actualUser.name === this.props.autor.name) {
       this.props.editComment(this.props.id, this.state.textValue);
     } else {
       alert('you cannot edit comment');
@@ -47,10 +48,21 @@ class Comment extends Component {
     );
   }
 }
-export default Comment;
+const mapStateToProps = state => ({
+  actualUser: state.actualUser.actualUser,
+});
+
+const mapDispatchToProps = {
+  deleteComment: action.deleteComment,
+  editComment: action.editComment,
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Comment);
 Comment.propTypes = {
-  editComment: PropTypes.func.isRequired,
   deleteComment: PropTypes.func.isRequired,
+  editComment: PropTypes.func.isRequired,
 
   text: PropTypes.string.isRequired,
 

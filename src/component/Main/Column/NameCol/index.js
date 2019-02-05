@@ -17,7 +17,11 @@ class NameCol extends Component {
   };
 
   editNameCol = () => {
-    this.props.editNameCol(this.props.id, this.state.nameColValue);
+    const column = {
+      id: this.props.id,
+      name: this.state.nameColValue,
+    };
+    this.props.editColumnName(column);
   };
 
   render() {
@@ -40,5 +44,5 @@ NameCol.propTypes = {
 
   id: PropTypes.number.isRequired,
 
-  editNameCol: PropTypes.func.isRequired,
+  editColumnName: PropTypes.func.isRequired,
 };
