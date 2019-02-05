@@ -40,22 +40,17 @@ class Column extends Component {
   editColName = column => this.props.editColumnName(column);
 
   render() {
-    const cards = this.props.cards.map(elem => {
-      if (elem.idCol === this.props.id) {
-        return (
-          <MyCard
-            key={elem.id}
-            id={elem.id}
-            name={elem.name}
-            autor={elem.autor}
-            description={elem.description}
-            column={this.props.column}
-            comments={elem.comments}
-          />
-        );
-      }
-      return null;
-    });
+    const cards = this.props.cards.map(elem => (
+      <MyCard
+        key={elem.id}
+        id={elem.id}
+        name={elem.name}
+        autor={elem.autor}
+        description={elem.description}
+        column={this.props.column}
+        comments={elem.comments}
+      />
+    ));
     return (
       <div className="blockForTask">
         <NameCol editColumnName={this.editColName} name={this.props.name} id={this.props.id} />

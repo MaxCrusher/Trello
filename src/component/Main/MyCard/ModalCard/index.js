@@ -58,20 +58,15 @@ class ModalCard extends Component {
     if (this.props.actualUser.name === this.props.autorCard.name) {
       propertyInput = false;
     } else propertyInput = true;
-    const comments = this.props.comments.map(elem => {
-      if (elem.idCard === this.props.id) {
-        return (
-          <Comment
-            key={elem.id + elem.autor}
-            text={elem.text}
-            autor={elem.autor}
-            autorCard={this.props.autorCard.name}
-            id={elem.id}
-          />
-        );
-      }
-      return null;
-    });
+    const comments = this.props.comments.map(elem => (
+      <Comment
+        key={elem.id + elem.autor}
+        text={elem.text}
+        autor={elem.autor}
+        autorCard={this.props.autorCard.name}
+        id={elem.id}
+      />
+    ));
     return (
       <Modal isOpen={this.props.isOpen}>
         <ModalHeader toggle={this.props.toggle}>
