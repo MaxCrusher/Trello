@@ -12,7 +12,6 @@ class MyCard extends Component {
       nameValue: this.props.name,
       descriptionValue: this.props.description,
       comment: '',
-      numComments: 0,
     };
   }
 
@@ -38,11 +37,6 @@ class MyCard extends Component {
     }
   };
 
-  numComments = (commentsArg, idCard) => {
-    const mas = commentsArg.filter(elem => elem.idCard === idCard);
-    this.setState({ numComments: mas.length });
-  };
-
   render() {
     return (
       <div className="MyCard" onKeyDown={this.closeEsc}>
@@ -52,7 +46,7 @@ class MyCard extends Component {
             <CardText> {this.props.column.name} </CardText>
             <CardText> Autor: {this.props.autor.name} </CardText>
             <CardText> {this.props.description} </CardText>
-            <CardText>Comments: {this.state.numComments}</CardText>
+            <CardText>Comments: {this.props.comments.length}</CardText>
             <Button color="danger" onClick={this.toggle}>
               Open
             </Button>
@@ -64,9 +58,9 @@ class MyCard extends Component {
           name={this.props.name}
           description={this.props.description}
           column={this.props.column}
+          comments={this.props.comments}
           autorCard={this.props.autor}
           toggle={this.toggle}
-          numComments={this.numComments}
         />
       </div>
     );
@@ -78,6 +72,8 @@ export default MyCard;
 MyCard.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+
+  comments: PropTypes.array.isRequired,
 
   column: PropTypes.object.isRequired,
   autor: PropTypes.object.isRequired,

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import * as action from '../../../../actions';
 
 import './index.css';
 

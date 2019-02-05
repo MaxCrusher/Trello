@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Comment from '../Comment';
 import * as action from '../../../../actions';
 import maxId from '../../../maxId';
-import { getCommentsToProps } from '../../../selectors';
 import '../index.css';
 
 class ModalCard extends Component {
@@ -73,7 +72,6 @@ class ModalCard extends Component {
       }
       return null;
     });
-    this.props.numComments(this.props.comments, this.props.id);
     return (
       <Modal isOpen={this.props.isOpen}>
         <ModalHeader toggle={this.props.toggle}>
@@ -132,7 +130,6 @@ class ModalCard extends Component {
 }
 
 const mapStateToProps = state => ({
-  comments: getCommentsToProps(state),
   actualUser: state.actualUser.actualUser,
 });
 
@@ -152,7 +149,6 @@ ModalCard.propTypes = {
   deleteCard: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
   editCard: PropTypes.func.isRequired,
-  numComments: PropTypes.func.isRequired,
 
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

@@ -50,6 +50,7 @@ class Column extends Component {
             autor={elem.autor}
             description={elem.description}
             column={this.props.column}
+            comments={elem.comments}
           />
         );
       }
@@ -68,14 +69,11 @@ class Column extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  actualUser: state.actualUser.actualUser,
-});
 const mapDispatchToProps = {
   editColumnName: action.editColumnName,
 };
 export default connect(
-  mapStateToProps,
+  undefined,
   mapDispatchToProps,
 )(Column);
 
@@ -85,7 +83,6 @@ Column.propTypes = {
   name: PropTypes.string.isRequired,
   column: PropTypes.object.isRequired,
 
-  actualUser: PropTypes.object.isRequired,
   cards: PropTypes.array.isRequired,
 
   id: PropTypes.number.isRequired,

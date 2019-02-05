@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Column from './Column';
-import { getColumnsToProps } from '../selectors';
+import { getColumnsData } from '../selectors';
 import './index.css';
 
 class Main extends Component {
@@ -22,9 +22,12 @@ class Main extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  columns: getColumnsToProps(state),
-});
+const mapStateToProps = state => {
+  console.log(getColumnsData(state));
+  return {
+    columns: getColumnsData(state),
+  };
+};
 export default connect(mapStateToProps)(Main);
 
 Main.propTypes = {

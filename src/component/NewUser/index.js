@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as action from '../../actions';
 import maxId from '../maxId';
-import { getUsers } from '../selectors';
 
 class NewUser extends Component {
   constructor(props) {
@@ -74,7 +73,7 @@ class NewUser extends Component {
   }
 }
 const mapStateToProps = state => ({
-  users: getUsers(state),
+  users: state.users.users,
 });
 
 const mapDispatchToProps = {
