@@ -22,12 +22,10 @@ class Main extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  console.log(getColumnsData(state));
-  return {
-    columns: getColumnsData(state),
-  };
-};
+const mapStateToProps = state => ({
+  columns: getColumnsData(state),
+});
+
 export default connect(mapStateToProps)(Main);
 
 Main.propTypes = {

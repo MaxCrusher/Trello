@@ -8,13 +8,11 @@ export const getColumnsData = createSelector(
   getColumns,
   getCards,
   getComments,
-  (columns, cards, comments) => {
-    console.log('object');
-    return columns.map(c => ({
+  (columns, cards, comments) =>
+    columns.map(c => ({
       ...c,
       cards: cards
         .filter(card => card.idCol === c.id)
         .map(card => ({ ...card, comments: comments.filter(com => com.idCard === card.id) })),
-    }));
-  },
+    })),
 );
