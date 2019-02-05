@@ -40,9 +40,6 @@ class NameCol extends Component {
     );
   }
 }
-/* const mapDispatchToProps = dispatch => ({
-  editColumnName: column => dispatch(action.editColumnName(column)),
-}); */
 export default NameCol;
 NameCol.propTypes = {
   name: PropTypes.string.isRequired,

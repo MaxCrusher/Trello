@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as action from '../../actions';
 import maxId from '../maxId';
+import { getUsers } from '../selectors';
 
 class NewUser extends Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class NewUser extends Component {
   }
 }
 const mapStateToProps = state => ({
-  users: state.users.users,
+  users: getUsers(state),
 });
 
 const mapDispatchToProps = {
@@ -89,9 +90,9 @@ export default connect(
 NewUser.propTypes = {
   updateActualUser: PropTypes.func.isRequired,
   addUser: PropTypes.func.isRequired,
-
   closeModal: PropTypes.func.isRequired,
 
   users: PropTypes.array.isRequired,
+
   isOpen: PropTypes.bool.isRequired,
 };
